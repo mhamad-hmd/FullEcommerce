@@ -1,12 +1,7 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  margin: 0;
+  height: 100%;
+  width: 100%;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,20 +9,19 @@
   -webkit-text-size-adjust: 100%;
 }
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-$mainFont: 'Urbanist', sans-serif;
+$mainFont: "Urbanist", sans-serif;
 
-html{
+html {
   width: 100%;
   height: 100%;
   font-family: $mainFont;
 }
 
-body{
+body {
   background: #f4f7f8;
-  height: 100%;;
+  height: 100%;
 }

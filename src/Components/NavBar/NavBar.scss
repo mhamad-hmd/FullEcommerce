@@ -4,8 +4,21 @@
     color: black;
     display: flex;
     justify-content:space-between ;
+    max-height: 60px;
+    height: 100%;
+    padding: 0 30px;
 }
 
+input[type="text"], textarea {
+
+    background-color : transparent; 
+  
+  }
+
+  .navTitle{
+    font-weight: bold;
+    font-size: 40px;
+  }
 
 .navItems{
     flex: 1;
@@ -16,4 +29,11 @@
     align-items: center;
     
 }
+
+.navEnd{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
 
