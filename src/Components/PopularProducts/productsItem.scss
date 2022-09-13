@@ -1,6 +1,7 @@
 
 .ProductContainer{
-    min-width: 280px;
+    max-width: 280px;
+    width: 100%;
     height: 350px;
     background-color: rgb(245 245 244);
     position: relative;
@@ -10,7 +11,7 @@
     }
 
     img{
-        height: 75%;
+        height: 80%;
         z-index: 2;
     }
 }

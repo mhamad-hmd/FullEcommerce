@@ -9,7 +9,7 @@ type item = {
 
 const ProductsItem = ({ item }: { item: item }) => {
     return (
-        <div className='ProductContainer flex justify-center items-center flex-1 m-1'>
+        <div className='ProductContainer flex justify-center items-center m-auto m-1'>
 
             <div className='circle'></div>
 
