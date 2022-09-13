@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import './slider.scss'
 import suit from '../../Assets/suit.png'
 import { sliderItems } from '../../data'
+import { keys } from '@mui/system'
 
 
 const Slider = () => {
@@ -10,18 +11,22 @@ const Slider = () => {
     const slideContainer = document.getElementById('slideContainer');
 
     const [slideIndex, setSlideIndex] = useState(0)
+    
 
     const handleClick = (direction: string) => {
         if(direction === "left"){
             setSlideIndex(slideIndex > 0? slideIndex - 1 : 2 )
-            console.log('left')
+            console.log(slideIndex)
         } else{
             setSlideIndex(slideIndex < 2? slideIndex + 1 : 0)
-            console.log('right')
+            console.log(slideIndex)
         }
      };
 
-    document.addEventListener('DOMContentLoaded', () => slideContainer!.style.transform = `translateX(${slideIndex} * -100vw)` ) 
+     const transform = {
+        transform: `translateX(${slideIndex * -100}vw)`,
+        
+    }
 
     return (
         <div id='sliderContainer' className='h-screen w-full flex '>
@@ -33,12 +38,12 @@ const Slider = () => {
                 </svg>
             </div>
 
-            <div id='slideContainer' className='slideContainer flex '  >
+            <div id='slideContainer' className='slideContainer flex ' style={transform}  >
                 {sliderItems.map((item) => (
-                    <div className={`slideWrapper flex items-center h-screen w-screen ${item.bg}`} >
+                    <div className={`slideWrapper flex items-center h-screen w-screen ${item.bg}` } key={item.id} >
 
                     <div className='imgContainer '>
-                        <img className='' src={item.img} alt="" />
+                        <img className='slideImg' src={item.img} alt="" />
                     </div>
 
                     <div className='infoWrapper'>
