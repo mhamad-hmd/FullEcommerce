@@ -29,7 +29,7 @@ const Slider = () => {
     }
 
     return (
-        <div id='sliderContainer' className='h-screen w-full flex '>
+        <div id='sliderContainer' className='h-screen w-full flex  md:flex xs:hidden '>
 
             <div id='Arrow' className='left flex justify-center items-center ' onClick={() => handleClick('left')} >
 

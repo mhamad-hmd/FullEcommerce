@@ -2,6 +2,11 @@
     width: 100vw;
     height: 100vh;
     background: linear-gradient( rgba(0, 0, 128,.5), rgba(255,255,255,.5)), url(../../Assets/registerBg.png);
+
+    @media (min-width: 320px ) and (max-width:768px) {
+        background: linear-gradient( rgba(0, 0, 128,.5), rgba(255,255,255,.5)), url(../../Assets/registerPhoneBg.jpg);
+        background-size: cover;
+    }
     
 }
 
@@ -9,19 +14,30 @@
     width: 100vw;
     height: 100vh;
     background: linear-gradient( rgba(0, 0, 128,.5), rgba(255,255,255,.5)), url(../../Assets/loginBg.png);
-    background-size: cover;
+    background-size: cover;     
+    @media (min-width: 320px ) and (max-width:768px) {
+        background: linear-gradient( rgba(0, 0, 128,.5), rgba(255,255,255,.5)), url(../../Assets/loginPhoneBg.jpg);
+        background-size: cover;
+    }
 }
 
-.RegisterWrapper{
+.registerWrapper{
     width: 40%;
     padding: 20px;
     background-color: white ;
+    @media (min-width: 320px ) and (max-width:768px) {
+        width: 90%;
+    }
 }
 
 .loginWrapper{
     width: 40%;
     padding: 20px;
     background-color: white ;
+    @media (min-width: 320px ) and (max-width:768px) {
+        width: 75%;
+    }
+
 }
 
 
@@ -44,7 +60,7 @@
 }
 
 .createBtn{
-    max-width: 40%;
+
     width: 100%;
     padding: 15px 20px;
     background-color: navy ;

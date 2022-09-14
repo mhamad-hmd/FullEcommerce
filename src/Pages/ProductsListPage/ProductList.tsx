@@ -19,8 +19,8 @@ const ProductList = () => {
 
       <div className="filterContainr flex justify-between">
 
-        <div className='filter m-5'>
-          <span className='text-2xl font-semibold mr-5'>Filter Products:</span>
+        <div className='filterProdcts filterItems / m-5  md:block / xs:flex xs:flex-col'>
+          <span className='text-xl font-semibold md:mr-5 xs:mr-0  '>Filter Products:</span>
 
           <select className='text-lg bg-transparent' name="" id="">
             <option value="" selected disabled hidden>Color</option>
@@ -38,8 +38,8 @@ const ProductList = () => {
 
         </div>
 
-        <div className='filter m-5'>
-          <span className='text-2xl  font-semibold'>Sort Products:</span>
+        <div className='filterSort filterItems /  m-5   '>
+          <span className='text-xl  font-semibold '>Sort Products:</span>
 
           <select className='text-lg ' name="" id="">
             <option value="" selected>Newest</option>

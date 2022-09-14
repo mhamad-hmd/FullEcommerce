@@ -3,4 +3,9 @@
     height: 70vh;
 }
 
+.categoryImg{
+    @media (min-width: 320px ) and (max-width:768px) {
+        height: 30vh;
+    }   
+}
 

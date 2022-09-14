@@ -11,24 +11,24 @@ const Cart = () => {
     <div className='cartContainer'>
       <Navbar />
       <Announcement />
-      <div className="cartWrapper p-5">
+      <div className="cartWrapper / md:p-5 xs:p-2 ">
         <h1 className='font-light text-center text-4xl'>YOUR SUIT</h1>
-        <div className="top flex items-center justify-between">
+        <div className="top / flex items-center justify-between">
           <button className="topBtn p-2 font-semibold border-2 border-black ">CONTINUE SHOPPING</button>
 
-          <div className="topText p-5">
+          <div className="topText / md:block  xs:hidden p-5">
             <span className='underline mx-5 '>Shopping Bag(2)</span>
             <span className='underline mx-5'>Your Wishlist(0)</span>
           </div>
 
-          <button className="topBtn p-2 font-semibold  bg-black text-white">CHECKOUT NOW</button>
+          <button className="topBtn p-2 font-semibold border-2 border-black  bg-black text-white">CHECKOUT NOW</button>
 
         </div>
 
-        <div className="bottom flex justify-between">
+        <div className="bottom / flex md:flex-row xs:flex-col justify-between">
           <div className="info ">
 
-            <div className="product flex justify-between">
+            <div className="product / flex md:flex-row xs:flex-col  justify-between">
               <div className="productDetails flex">
                 <img className='productImg' src="https://www.freeiconspng.com/uploads/black-man-in-suit-png-2.png" alt="" />
                 <div className="details flex flex-col p-5 justify-around">
@@ -45,19 +45,19 @@ const Cart = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                   </svg>
 
-                  <span className='amount text-xl flex justify-center items-center mx-1 text-xl m-1 '>1</span>
+                  <span className='amount / text-xl  / flex justify-center items-center / md:m-1 xs:my-1 xs:mx-3  '>1</span>
 
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
                 </div>
-                <span className="productPrice text-2xl font-light">$400</span>
+                <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">$400</span>
               </div>
             </div>
 
-    <hr className='bg-white border-none ' />
+    <hr className='bg-white  ' />
 
-            <div className="product flex justify-between">
+            <div className="product / flex md:flex-row xs:flex-col  justify-between">
               <div className="productDetails flex">
                 <img className='productImg' src="https://www.freeiconspng.com/uploads/men-suit-png-19.png" alt="" />
                 <div className="details flex flex-col p-5 justify-around">
@@ -69,7 +69,7 @@ const Cart = () => {
               </div>
               <div className="priceDetail flex justify-center items-center flex-col">
                 
-                <div className="productAmountContainer flex items-center mb-5">
+                <div className="productAmountContainer  flex items-center mb-5">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                   </svg>
@@ -80,7 +80,7 @@ const Cart = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
                 </div>
-                <span className="productPrice text-2xl font-light">$400</span>
+                <span className="productPrice / text-2xl font-light md:mb-0 xs:mb-5 ">$400</span>
               </div>
             </div>
 

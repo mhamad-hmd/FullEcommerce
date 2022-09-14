@@ -1,41 +1,46 @@
-
-.productImg{
+.productImg {
     width: 100%;
-    max-height: 900px ;
+    max-height: 90vh;
     height: 100%;
     object-fit: contain;
+    @media (min-width: 320px) and (max-width: 768px) {
+        max-height: 40vh;
+    }
 }
 
-.filterContainer{
+.filterContainer {
     width: 50%;
     margin: 30px 0;
+    @media (min-width: 320px) and (max-width: 768px) {
+        width: 100%;
+    }
 }
 
-.filterColor{
+.filterColor {
     height: 20px;
     width: 20px;
     border-radius: 50%;
 }
 
-
-.amount{
-    max-width:30px ;
+.amount {
+    max-width: 30px;
     max-height: 30px;
     height: 100%;
     width: 100%;
     border-radius: 10px;
     border: 1px solid teal;
-    
 }
 
-.addToCartBtn{
-    border: 2px solid teal ;
+.addToCartBtn {
+    border: 2px solid teal;
     padding: 15px;
     background-color: white;
 }
 
-.addContainer{
+.addContainer {
     width: 50%;
     font-weight: 500;
+    @media (min-width: 320px) and (max-width: 768px) {
+        width: 100%;
+    }
 }
-

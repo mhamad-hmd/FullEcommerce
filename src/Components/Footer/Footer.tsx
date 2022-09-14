@@ -4,7 +4,7 @@ import './Footer.scss'
 
 const Footer = () => {
   return (
-    <div className='footerContainer flex justify-between'>
+    <div className='footerContainer / flex md:flex-row xs:flex-col justify-between'>
 
       <div className='left footeritem flex flex-col p-5 '>
 
@@ -53,9 +53,9 @@ const Footer = () => {
 
       </div>
 
-      <div className='center footeritem'>
+      <div className='center footeritem md:block xs:hidden '>
 
-        <h3 className='text-2xl font-bold mb-8'>Usefull Links</h3>
+        <h3 className='text-3xl font-bold mb-8'>Usefull Links</h3>
 
         <ul className='centerUl flex flex-wrap m-0 p-0 '>
 
@@ -73,9 +73,9 @@ const Footer = () => {
       </div>
 
 
-      <div className="right footeritem">
+      <div className="right footeritem md:bg-white xs:bg-gray-200">
 
-        <h3 className='text-2xl font-bold mb-8 '>Contact</h3>
+        <h3 className='md:text-3xl xs:text-4xl font-bold mb-8 '>Contact</h3>
       
         <div className='flex gap-1 my-4'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

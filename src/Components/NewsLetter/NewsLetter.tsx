@@ -5,8 +5,8 @@ import './newsLetter.scss'
 const NewsLetter = () => {
     return (
         <div className='NewsLetterContainer flex justify-center items-center flex-col'>
-            <h1 className='text-7xl m-4 font-medium'>NewsLetter</h1>
-            <p className='text-2xl  font-normal mb-5'>Get timely updates from your favorite products</p>
+            <h1 className='md:text-7xl xs:text-5xl  m-4 font-medium'>NewsLetter</h1>
+            <p className='text-2xl  font-normal text-center mb-5'>Get timely updates from your favorite products</p>
 
             <div className='inputContainer border  flex items-center justify-between'>
                 <input className='flex-1 pl-5 outline-none' type="email" placeholder='your email' />
