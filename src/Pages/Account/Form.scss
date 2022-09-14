@@ -1,0 +1,57 @@
+.registerContainer{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient( rgba(0, 0, 128,.5), rgba(255,255,255,.5)), url(../../Assets/registerBg.png);
+    
+}
+
+.loginContainer{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient( rgba(0, 0, 128,.5), rgba(255,255,255,.5)), url(../../Assets/loginBg.png);
+    background-size: cover;
+}
+
+.RegisterWrapper{
+    width: 40%;
+    padding: 20px;
+    background-color: white ;
+}
+
+.loginWrapper{
+    width: 40%;
+    padding: 20px;
+    background-color: white ;
+}
+
+
+.registerForm input{
+    flex: 1;
+    min-width: 40%;
+    margin: 20px 10px 0 0;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    outline: none;
+}
+
+.loginForm input{
+    flex: 1;
+    min-width: 40%;
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    outline: none;
+}
+
+.createBtn{
+    max-width: 40%;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: navy ;
+    color: white;
+    border: none;
+    
+}
+
+
+

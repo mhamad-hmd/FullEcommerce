@@ -1,0 +1,37 @@
+
+.bottom .info{
+    flex:3;
+}
+
+.bottom .summary{
+    flex: 1;
+}
+
+.productDetails{
+    flex:2
+}
+
+.priceDetail{
+    flex: 1;
+}
+
+.productImg{
+    max-width: 200px;
+    width: 100%;
+}
+
+
+.summary{
+    flex: 1;
+    border: .5px solid lightgray;
+    border-radius: 10px;
+    padding: 20px;
+    height: 50vh;
+}
+
+.summaryItem{
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
