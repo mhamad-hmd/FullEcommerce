@@ -1,12 +1,26 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './ProductPage.scss'
 import Announcement from '../../Components/Announcement/Announcement'
 import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import NewsLetter from '../../Components/NewsLetter/NewsLetter'
+import { useLocation } from 'react-router-dom'
 
 const ProductPage = () => {
+
+    const location = useLocation();
+    const cat = location.pathname.split("/")[2];
+    const [products, setProducts] = useState(Object)
+
+useEffect(() => {
+    const getProduct = async () => {
+        try{
+            
+        } catch(err){console.log(err)}
+    }
+})
+
     return (
         <div className='ProductPageContainer'>
 
