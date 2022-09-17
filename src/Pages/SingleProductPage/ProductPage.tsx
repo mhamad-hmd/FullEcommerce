@@ -16,13 +16,13 @@ const ProductPage = () => {
     const quantity = useStore((state: any) => state.quantity)
     const setCart = useStore((state: any) => state.setCart)
     const cart = useStore((state: any) => state.cart)
+    const CartProducts = useStore((state: any) => state.products)
+    const setCartproducts = useStore((state: any) => state.setProduct)
 
 
-    
-
-  
 
     type Product = {
+        length: number
         color: Array<string>,
         title: String,
         desc: String,
@@ -38,14 +38,17 @@ const ProductPage = () => {
     const [product, setProduct] = useState<Product>(Object);
     const [size, setSize] = useState(String);
     const [color, setColor] = useState(String);
+    const price = product.price * quantity;
 
     useEffect(() => {
         const getProduct = async () => {
             try {
                 const res = await publicRequest.get("/products/find/" + id);
                 setProduct(res.data)
+                
             } catch (err) { console.log(err) }
         }
+
         getProduct()
     }, [id])
 
@@ -55,11 +58,17 @@ const ProductPage = () => {
         } else {
             setQuantity(quantity + 1)
         }
-        setCart(  quantity )   
+
+    }
+
+    const addToCart = () => {
+        setCartproducts(product)
+        setCart(quantity, price, CartProducts)
+        
     }
 
 
-    console.log(cart)
+
     return (
         <div className='ProductPageContainer'>
 
@@ -76,7 +85,7 @@ const ProductPage = () => {
                     <h1 className='font-extralight text-4xl'>{product.title}</h1>
                     <p className='my-5'>{product.desc}
                     </p>
-                    <span className='font-thin text-4xl'>$ {product.price}</span>
+                    <span className='font-thin text-4xl'>$ {price}</span>
 
 
                     <div className="filterContainer flex justify-between ">
@@ -112,7 +121,7 @@ const ProductPage = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                             </svg>
 
-                            <span className='amount flex justify-center items-center mx-1 '>{quantity}</span>
+                            <span className='amount flex justify-center items-center mx-1 '>{product.quantity}</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc") }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -120,7 +129,7 @@ const ProductPage = () => {
 
 
                         </div>
-                        <button className='addToCartBtn'>ADD TO CART</button>
+                        <button className='addToCartBtn' onClick={addToCart}>ADD TO CART</button>
 
                     </div>
                 </div>
