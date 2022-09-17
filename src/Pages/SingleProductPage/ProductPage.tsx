@@ -6,21 +6,60 @@ import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import NewsLetter from '../../Components/NewsLetter/NewsLetter'
 import { useLocation } from 'react-router-dom'
+import { publicRequest } from '../../requestMethos'
+import { useStore } from '../../store'
+
 
 const ProductPage = () => {
 
-    const location = useLocation();
-    const cat = location.pathname.split("/")[2];
-    const [products, setProducts] = useState(Object)
+    const setQuantity = useStore((state: any) => state.addQuantity)
+    const quantity = useStore((state: any) => state.quantity)
+    const setCart = useStore((state: any) => state.setCart)
+    const cart = useStore((state: any) => state.cart)
 
-useEffect(() => {
-    const getProduct = async () => {
-        try{
-            
-        } catch(err){console.log(err)}
+
+    
+
+  
+
+    type Product = {
+        color: Array<string>,
+        title: String,
+        desc: String,
+        img: string,
+        price: number,
+        size: Array<string>,
     }
-})
 
+    const location = useLocation();
+
+    //  fetching id from the current url location
+    const id = location.pathname.split("/")[2];
+    const [product, setProduct] = useState<Product>(Object);
+    const [size, setSize] = useState(String);
+    const [color, setColor] = useState(String);
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const res = await publicRequest.get("/products/find/" + id);
+                setProduct(res.data)
+            } catch (err) { console.log(err) }
+        }
+        getProduct()
+    }, [id])
+
+    const handleClick = (type: string) => {
+        if (type === 'desc') {
+            quantity > 1 && setQuantity(quantity - 1);
+        } else {
+            setQuantity(quantity + 1)
+        }
+        setCart(  quantity )   
+    }
+
+
+    console.log(cart)
     return (
         <div className='ProductPageContainer'>
 
@@ -30,35 +69,37 @@ useEffect(() => {
             <div className="productWrapper / md:p-10 xs:p-2 / flex md:flex-row xs:flex-col /">
 
                 <div className="imgContainer flex-1">
-                    <img className='productImg ' src="https://www.freeiconspng.com/uploads/men-suit-png-19.png" alt="" />
+                    <img className='productImg ' src={product.img} alt="" />
                 </div>
 
                 <div className="ProductinfoContainer / flex-1 / md:px-10 xs:p-2">
-                    <h1 className='font-extralight text-4xl'>PINSTRIPE SUIT</h1>
-                    <p className='my-5'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde omnis ex laborum necessitatibus
-                        totam? Beatae nulla voluptatem hic. Reprehenderit sed nam repellat cupiditate laborum est
-                        distinctio magnam quo voluptatibus! A!
+                    <h1 className='font-extralight text-4xl'>{product.title}</h1>
+                    <p className='my-5'>{product.desc}
                     </p>
-                    <span className='font-thin text-4xl'>40$</span>
+                    <span className='font-thin text-4xl'>$ {product.price}</span>
 
 
                     <div className="filterContainer flex justify-between ">
 
                         <div className="filter flex justify-center items-center gap-2">
                             <span className="filterTitle font-extralight text-xl">Color</span>
-                            <div className="filterColor bg-black" color='Black' ></div>
-                            <div className="filterColor bg-gray-700" color='gray'></div>
-                            <div className="filterColor bg-blue-900" color='Navy'></div>
+                            {product.color?.map((item: string) => (
+                                <option className={`filterColor bg-${item}-700`} key={item} onClick={() => setColor(item)}></option>
+                            ))}
+
 
 
                         </div>
 
                         <div className="filter / flex">
                             <span className="filterTitle font-extralight text-xl">Size</span>
-                            <select name="" id="" className="filterSize ml-2 p-1 outline-none">
-                                <option value="">SM</option>
-                                <option value="">MD</option>
-                                <option value="">LG</option>
+                            <select name="" id="" className="filterSize ml-2 p-1 outline-none" onChange={(e) => setSize(e.target.value)}>
+                                <option value="" hidden></option>
+                                {product.size?.map((item: string) => (
+                                    <option key={item}>{item}</option>
+                                ))}
+
+
                             </select>
                         </div>
 
@@ -67,13 +108,13 @@ useEffect(() => {
 
                         <div className="amountContainer flex items-center gap-2 font-bold  ">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("desc") }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                             </svg>
 
-                            <span className='amount text-lg flex justify-center items-center mx-1 '>1</span>
+                            <span className='amount flex justify-center items-center mx-1 '>{quantity}</span>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc") }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
 

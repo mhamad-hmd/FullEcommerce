@@ -5,8 +5,14 @@ import Announcement from '../../Components/Announcement/Announcement'
 import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import suit from './../../Assets/suit.png'
+import { useStore } from '../../store'
 
 const Cart = () => {
+
+
+
+
+
   return (
     <div className='cartContainer'>
       <Navbar />
