@@ -8,6 +8,7 @@ import NewsLetter from '../../Components/NewsLetter/NewsLetter'
 import { useLocation } from 'react-router-dom'
 import { publicRequest } from '../../requestMethos'
 import { useStore } from '../../store'
+import { object, string } from 'prop-types'
 
 
 const ProductPage = () => {
@@ -16,8 +17,6 @@ const ProductPage = () => {
     const quantity = useStore((state: any) => state.quantity)
     const setCart = useStore((state: any) => state.setCart)
     const cart = useStore((state: any) => state.cart)
-    const CartProducts = useStore((state: any) => state.products)
-    const setCartproducts = useStore((state: any) => state.setProduct)
 
 
 
@@ -39,13 +38,14 @@ const ProductPage = () => {
     const [size, setSize] = useState(String);
     const [color, setColor] = useState(String);
     const price = product.price * quantity;
-
+    const cartQuantity = Object.values(cart);
+    
     useEffect(() => {
         const getProduct = async () => {
             try {
                 const res = await publicRequest.get("/products/find/" + id);
                 setProduct(res.data)
-                
+
             } catch (err) { console.log(err) }
         }
 
@@ -62,11 +62,9 @@ const ProductPage = () => {
     }
 
     const addToCart = () => {
-        setCartproducts(product)
-        setCart(quantity, price, CartProducts)
-        
+        setCart( cartQuantity[0],price, {...product, size, color,quantity})
+        console.log(price)
     }
-
 
 
     return (
@@ -93,7 +91,8 @@ const ProductPage = () => {
                         <div className="filter flex justify-center items-center gap-2">
                             <span className="filterTitle font-extralight text-xl">Color</span>
                             {product.color?.map((item: string) => (
-                                <option className={`filterColor bg-${item}-700`} key={item} onClick={() => setColor(item)}></option>
+
+                                <option style={{ background: `${item}` }} className="filterColor" key={item} onClick={() => setColor(item)}></option>
                             ))}
 
 
@@ -121,7 +120,7 @@ const ProductPage = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                             </svg>
 
-                            <span className='amount flex justify-center items-center mx-1 '>{product.quantity}</span>
+                            <span className='amount flex justify-center items-center mx-1 '>{quantity}</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc") }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

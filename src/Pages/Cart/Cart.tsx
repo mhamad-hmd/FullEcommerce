@@ -9,7 +9,19 @@ import { useStore } from '../../store'
 
 const Cart = () => {
 
+  type product = {
+    img: string,
+    title:String,
+    desc:String,
+    size:String,
+    color:string,
+    price:number,
+    _id:string,
+    quantity:number
 
+  }
+
+  const cart = useStore((state: any) => state.cart)
 
 
 
@@ -33,70 +45,42 @@ const Cart = () => {
 
         <div className="bottom / flex md:flex-row xs:flex-col justify-between">
           <div className="info ">
+            {cart.products.map((product:product) => (
 
-            <div className="product / flex md:flex-row xs:flex-col  justify-between">
-              <div className="productDetails flex">
-                <img className='productImg' src="https://www.freeiconspng.com/uploads/black-man-in-suit-png-2.png" alt="" />
-                <div className="details flex flex-col p-5 justify-around">
-                  <span className="productName"><b>Product:</b> Black Suit</span>
-                  <span className="productId"><b>ID:</b> 1234567</span>
-                  <span className="productColor rounded-full w-5 h-5 bg-black"></span>
-                  <span className="productSize"><b>Size:</b> MD</span>
+              <div className="product / flex md:flex-row xs:flex-col  justify-between">
+                <div className="productDetails flex">
+                  <img className='productImg' src={product.img} alt="" />
+                  <div className="details flex flex-col p-5 justify-around">
+                    <span className="productName"><b>Product:</b> {product.title}</span>
+                    <span className="productId"><b>ID:</b> {product._id}</span>
+                    <span style={{background: product.color}} className="productColor rounded-full w-5 h-5"></span>
+                    <span className="productSize"><b>Size:</b> {product.size}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="priceDetail flex justify-center items-center flex-col">
+                <div className="priceDetail flex justify-center items-center flex-col">
+
+                  <div className="productAmountContainer flex items-center mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
+                    </svg>
+
+                    <span className='amount / text-xl  / flex justify-center items-center / md:m-1 xs:my-1 xs:mx-3  '>{product.quantity}</span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                  </div>
+                  <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">${product.price * product.quantity}</span>
+                </div>
+              </div>))}
                 
-                <div className="productAmountContainer flex items-center mb-5">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
-                  </svg>
-
-                  <span className='amount / text-xl  / flex justify-center items-center / md:m-1 xs:my-1 xs:mx-3  '>1</span>
-
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                  </svg>
-                </div>
-                <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">$400</span>
-              </div>
-            </div>
-
-    <hr className='bg-white  ' />
-
-            <div className="product / flex md:flex-row xs:flex-col  justify-between">
-              <div className="productDetails flex">
-                <img className='productImg' src="https://www.freeiconspng.com/uploads/men-suit-png-19.png" alt="" />
-                <div className="details flex flex-col p-5 justify-around">
-                  <span className="productName"><b>Product:</b> gray Suit</span>
-                  <span className="productId"><b>ID:</b> 1234567</span>
-                  <span className="productColor rounded-full w-5 h-5 bg-gray-700"></span>
-                  <span className="productSize"><b>Size:</b> MD</span>
-                </div>
-              </div>
-              <div className="priceDetail flex justify-center items-center flex-col">
-                
-                <div className="productAmountContainer  flex items-center mb-5">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
-                  </svg>
-
-                  <span className='amount text-xl flex justify-center items-center mx-1 text-xl m-1 '>1</span>
-
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                  </svg>
-                </div>
-                <span className="productPrice / text-2xl font-light md:mb-0 xs:mb-5 ">$400</span>
-              </div>
-            </div>
-
-
           </div>
+          
           <div className="summary  ">
             <h1>ORDER SUMMARY</h1>
             <div className="summaryItem">
               <span className="summaryItemText">Subtotal</span>
-              <span className="summaryItemPrice">  400$</span>
+              <span className="summaryItemPrice">  {cart.totalPrice}$</span>
             </div>
             <div className="summaryItem">
               <span className="summaryItemText">Estimated shipping</span>

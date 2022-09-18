@@ -1,19 +1,20 @@
 
 import create from 'zustand';
+import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export const useStore = create(set => ({
 
     cart: {
-        quantity: Number,
-        price: Number,
-        products: Array,
+        cartQuantity: 0,
+        totalPrice: 0,
+        products: [],
     },
-    setCart: (quantity: number, price: number, products: Array<object>) => set((state: any) => ({
+    setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
         cart: {
             ...state.cart,
-            quantity,
-            price,
-            products,
+           cartQuantity: cartQuantity+=1,
+            totalPrice: state.cart.totalPrice+=price,
+            products: [...state.cart.products, products],
         }
     })),
 
@@ -22,11 +23,10 @@ export const useStore = create(set => ({
         quantity: value
     })),
 
-    products: [],
-    setProduct: (product: object) => set((state: any) => ({
-        products: [...state.products, product]
-    }))
 
 
 }))
 
+if (process.env.NODE_ENV === 'development') {
+    mountStoreDevtool('Store', useStore);
+  }
