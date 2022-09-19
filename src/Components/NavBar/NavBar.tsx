@@ -6,8 +6,6 @@ import './NavBar.scss'
 
 const Navbar = () => {
   const cart = useStore((state: any) => state.cart)
-  console.log(cart)
-
 
   return (
     <div className='navContainer flex-wrap md:px-8 xs:px-4 mt-4 text-black'>
