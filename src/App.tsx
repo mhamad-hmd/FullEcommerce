@@ -13,10 +13,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Success from './Pages/success'
 
 
 function App() {
-  const user = true
+  const user = false
 
   return (
     
@@ -28,6 +29,8 @@ function App() {
       <Route path = "/cart" element = {<Cart/>} />
       <Route path = "/login" element = {user? <Navigate to="/"/> : <LogIn/>} />
       <Route path = "/register" element = {user? <Navigate to="/"/> : <Register/>} />
+      <Route path = "/success" element = {<Success  />} />
+
 
     </Routes>
    </Router>

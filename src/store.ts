@@ -27,6 +27,29 @@ export const useStore = create(set => ({
 
 }))
 
+export const userStore = create(set => ({
+    currentUser:Object,
+    setCurrentUser: (value:object) => set ((state:any) => ({
+        currentUser:value
+    })),
+
+    logging:{
+        logginStart:Boolean,
+        loginSuccess:Boolean
+    },
+    setLogging: (logginStart:Boolean, loginSuccess:Boolean) => set ((state:any) => ({
+        logging:{
+            logginStart,
+            loginSuccess,
+        }
+    }))
+
+}))
+
+
+
+
 if (process.env.NODE_ENV === 'development') {
-    mountStoreDevtool('Store', useStore);
+    mountStoreDevtool('Store', userStore);
+
   }

@@ -6,7 +6,7 @@ import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import NewsLetter from '../../Components/NewsLetter/NewsLetter'
 import { useLocation } from 'react-router-dom'
-import { publicRequest } from '../../requestMethos'
+import { publicRequest } from '../../requestMethods'
 import { useStore } from '../../store'
 import { object, string } from 'prop-types'
 
@@ -18,8 +18,8 @@ const ProductPage = () => {
     const setCart = useStore((state: any) => state.setCart)
     const cart = useStore((state: any) => state.cart)
 
-
-
+    
+    
     type Product = {
         length: number
         color: Array<string>,

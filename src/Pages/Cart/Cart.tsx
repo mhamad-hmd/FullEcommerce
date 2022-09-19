@@ -1,29 +1,57 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './cart.scss'
 import Announcement from '../../Components/Announcement/Announcement'
 import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import suit from './../../Assets/suit.png'
 import { useStore } from '../../store'
+import { userRequest } from '../../requestMethods'
+import { useNavigate } from 'react-router-dom'
+import StripeCheckout from 'react-stripe-checkout'
+
 
 const Cart = () => {
 
   type product = {
     img: string,
-    title:String,
-    desc:String,
-    size:String,
-    color:string,
-    price:number,
-    _id:string,
-    quantity:number
+    title: String,
+    desc: String,
+    size: String,
+    color: string,
+    price: number,
+    _id: string,
+    quantity: number
 
   }
 
   const cart = useStore((state: any) => state.cart)
+  const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
+
+  const [stripeToken, setStripeToken] = useState(Object);
+  const navigate = useNavigate()
 
 
+
+  const onToken = (token: any) => {
+    setStripeToken(token)
+  }
+  console.log(stripeToken)
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment",
+         {
+          tokenId: stripeToken.id,
+          amount: 500 * 100,
+        }
+        );
+        navigate("/success")
+      } catch (err) { console.log(err) }
+    }
+    stripeToken && makeRequest()
+  }, [stripeToken, cart.totalPrice, navigate])
 
   return (
     <div className='cartContainer'>
@@ -45,7 +73,7 @@ const Cart = () => {
 
         <div className="bottom / flex md:flex-row xs:flex-col justify-between">
           <div className="info ">
-            {cart.products.map((product:product) => (
+            {cart.products.map((product: product) => (
 
               <div className="product / flex md:flex-row xs:flex-col  justify-between">
                 <div className="productDetails flex">
@@ -53,7 +81,7 @@ const Cart = () => {
                   <div className="details flex flex-col p-5 justify-around">
                     <span className="productName"><b>Product:</b> {product.title}</span>
                     <span className="productId"><b>ID:</b> {product._id}</span>
-                    <span style={{background: product.color}} className="productColor rounded-full w-5 h-5"></span>
+                    <span style={{ background: product.color }} className="productColor rounded-full w-5 h-5"></span>
                     <span className="productSize"><b>Size:</b> {product.size}</span>
                   </div>
                 </div>
@@ -73,9 +101,9 @@ const Cart = () => {
                   <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">${product.price * product.quantity}</span>
                 </div>
               </div>))}
-                
+
           </div>
-          
+
           <div className="summary  ">
             <h1>ORDER SUMMARY</h1>
             <div className="summaryItem">
@@ -94,7 +122,17 @@ const Cart = () => {
               <span className="summaryItemText ">Total</span>
               <span className="summaryItemPrice"> 400$</span>
             </div>
-            <button className="summaryBtn w-full p-2 bg-black text-white font-semibold">CHECKOUT NOW</button>
+            <StripeCheckout
+              name="ESHOP"
+              token={onToken}
+              billingAddress
+              shippingAddress
+              description='Your total is 20$'
+              amount={2000}
+              stripeKey={key}
+            />
+            
+
           </div>
         </div>
 
