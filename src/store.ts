@@ -3,7 +3,8 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-export const useStore = create(set => ({
+export const useStore = create(
+   persist (set => ({
 
     cart: {
         cartQuantity: 0,
@@ -26,43 +27,58 @@ export const useStore = create(set => ({
 
 
 
-}))
+}),
 
- const userStore = (set: any) => ({
+{
+    name: 'cart-storage', 
+    partialize: (state:any) => ({cart: state.cart }),
+  }
 
-            currentUser: Object,
-            setCurrentUser: (value: object) => set(() => ({
-                currentUser: value
-            })),
-
-            logging: {
-                logginStart: false,
-                loginSuccess: boolean
-            },
-            setLogging: (logginStart: Boolean, loginSuccess: Boolean) => set((_state: any) => ({
-                logging: {
-                    logginStart,
-                    loginSuccess,
-                }
-            })),
+)
+)
 
 
 
-        })
+const userStore = (set: any) => ({
+
+    currentUser: Object,
+    setCurrentUser: (value: object) => set(() => ({
+        currentUser: value
+    })),
+
+    logging: {
+        logginStart: new Boolean,
+        loginSuccess: new Boolean,
+    },
+    setLogging: (logginStart: Boolean, loginSuccess: Boolean) => set((_state: any) => ({
+        logging: {
+            logginStart,
+            loginSuccess,
+        }
+    })),
+
+
+
+})
 
 
 
 export const useUserStore = create(
     devtools(
         persist(userStore, {
-            name:'userLogin'
+            name: 'userLogin',
+            partialize: (state) =>({
+                currentUser:state.currentUser
+            })
         })
     )
 )
 
 
 if (process.env.NODE_ENV === 'development') {
-    mountStoreDevtool('Store', useUserStore);
+    mountStoreDevtool('Userstore', useUserStore);
+    mountStoreDevtool('Store', useStore);
+
 
 }
 

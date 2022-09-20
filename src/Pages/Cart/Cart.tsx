@@ -7,8 +7,9 @@ import Navbar from '../../Components/NavBar/NavBar'
 import suit from './../../Assets/suit.png'
 import { useStore } from '../../store'
 import { userRequest } from '../../requestMethods'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout'
+import { object } from 'prop-types'
 
 
 const Cart = () => {
@@ -26,25 +27,54 @@ const Cart = () => {
   }
 
   const cart = useStore((state: any) => state.cart)
+  const setCart = useStore((state: any) => state.setCart)
+
   const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
 
   const [stripeToken, setStripeToken] = useState(Object);
   const navigate = useNavigate()
+  const setQuantity = useStore((state: any) => state.addQuantity)
+  const quantity = useStore((state: any) => state.quantity)
 
 
 
   const onToken = (token: any) => {
     setStripeToken(token)
   }
-  
+type productQuan = {
+  quantity : Number
+}
+
+
+  const handleClick = (type: string, index:number) => {
+    setQuantity(cart.products[index].quantity)
+    if (type === 'desc') {
+        quantity > 1 && setQuantity(quantity - 1);
+    } else {
+        setQuantity(quantity + 1)
+    }
+    //  cart.products[index].quantity = quantity
+    
+
+
+    // useStore.setState({
+    //   cart:{
+    //     ...cart,
+    //     products: 
+
+    //   }
+    // })
+
+}
+
   useEffect(() => {
     const makeRequest = async () => {
       try {
         const res = await userRequest.post("/checkout/payment",
-         {
-          tokenId: stripeToken.id,
-          amount: 500 * 100,
-        }
+          {
+            tokenId: stripeToken.id,
+            amount: 500 * 100,
+          }
         );
         navigate("/success")
       } catch (err) { console.log(err) }
@@ -57,12 +87,14 @@ const Cart = () => {
       <Navbar />
       <Announcement />
       <div className="cartWrapper / md:p-5 xs:p-2 ">
-        <h1 className='font-light text-center text-4xl'>YOUR SUIT</h1>
+        <h1 className='font-light text-center text-4xl'>YOUR CART </h1>
         <div className="top / flex items-center justify-between">
-          <button className="topBtn p-2 font-semibold border-2 border-black ">CONTINUE SHOPPING</button>
 
+          <Link to={"/"}>
+            <button className="topBtn p-2 font-semibold border-2 border-black ">CONTINUE SHOPPING</button>
+          </Link>
           <div className="topText / md:block  xs:hidden p-5">
-            <span className='underline mx-5 '>Shopping Bag(2)</span>
+            <span className='underline mx-5 '>Shopping Bag({cart.cartQuantity})</span>
             <span className='underline mx-5'>Your Wishlist(0)</span>
           </div>
 
@@ -72,9 +104,9 @@ const Cart = () => {
 
         <div className="bottom / flex md:flex-row xs:flex-col justify-between">
           <div className="info ">
-            {cart.products.map((product: product) => (
+            {cart.products.map((product: product, index:number) => (
 
-              <div className="product / flex md:flex-row xs:flex-col  justify-between">
+              <div key={index}  className="product / flex md:flex-row xs:flex-col  justify-between">
                 <div className="productDetails flex">
                   <img className='productImg' src={product.img} alt="" />
                   <div className="details flex flex-col p-5 justify-around">
@@ -86,14 +118,14 @@ const Cart = () => {
                 </div>
                 <div className="priceDetail flex justify-center items-center flex-col">
 
-                  <div className="productAmountContainer flex items-center mb-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                  <div className="productAmountContainer flex text-center items-center mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("desc", index) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                     </svg>
 
                     <span className='amount / text-xl  / flex justify-center items-center / md:m-1 xs:my-1 xs:mx-3  '>{product.quantity}</span>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc", index) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                   </div>
@@ -121,17 +153,17 @@ const Cart = () => {
               <span className="summaryItemText ">Total</span>
               <span className="summaryItemPrice"> 400$</span>
             </div>
-            <StripeCheckout
-              name="ESHOP"
-              token={onToken}
-              billingAddress
-              shippingAddress
-              description='Your total is 20$'
-              amount={2000}
-              stripeKey={key}
-            />
-            
-
+            <div>
+              <StripeCheckout
+                name="ESHOP"
+                token={onToken}
+                billingAddress
+                shippingAddress
+                description='Your total is 20$'
+                amount={2000}
+                stripeKey={key}
+              />
+            </div>
           </div>
         </div>
 

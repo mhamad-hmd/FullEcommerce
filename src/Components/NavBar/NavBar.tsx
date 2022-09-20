@@ -32,7 +32,9 @@ const Navbar = () => {
 
         <h1>REGISTER</h1>
 
-        <h1>SIGNIN</h1>
+        <Link to={`/login`}>
+          <h1>SIGNIN</h1>
+        </Link>
 
         <div className="font-sans block md:mt-4 lg:inline-block lg:mt-0 lg:ml-6 align-middle text-black hover:text-gray-700">
           <Link to={`/cart`}>

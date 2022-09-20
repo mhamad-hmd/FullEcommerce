@@ -14,12 +14,11 @@ import {
   Navigate,
 } from "react-router-dom";
 import Success from './Pages/Success'
-import { userStore, useStore } from './store'
+import { useUserStore } from './store'
 
 
 function App() {
-  const user =  userStore((state:any) => state.currentUser)
-console.log(user )
+  const user =  useUserStore((state:any) => state.currentUser)
   return (
     
    <Router>
@@ -28,7 +27,7 @@ console.log(user )
       <Route path = "/products/:category" element = {<ProductList/>} />
       <Route path = "/product/:id" element = {<ProductPage/>} />
       <Route path = "/cart" element = {<Cart/>} />
-      <Route path = "/login" element = {Object.keys(user.currentUser).length > 0  ? <Navigate to="/"/> : <LogIn/>} />
+      <Route path = "/login" element = {user? <Navigate to="/"/> : <LogIn/>} />
       <Route path = "/register" element = {user ? <Navigate to="/"/> : <Register/>} />
       <Route path = "/success" element = {<Success  />} />
 
