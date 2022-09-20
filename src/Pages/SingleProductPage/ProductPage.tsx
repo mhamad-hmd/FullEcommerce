@@ -63,7 +63,6 @@ const ProductPage = () => {
 
     const addToCart = () => {
         setCart( cartQuantity[0],price, {...product, size, color,quantity})
-        console.log(price)
     }
 
 

@@ -3,38 +3,60 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
+
+
+type productQuantity = {
+    title: string,
+    quantity: Number
+}
+
 export const useStore = create(
-   persist (set => ({
+    persist(set => ({
 
-    cart: {
-        cartQuantity: 0,
-        totalPrice: 0,
-        products: [],
-    },
-    setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
         cart: {
-            ...state.cart,
-            cartQuantity: cartQuantity += 1,
-            totalPrice: state.cart.totalPrice += price,
-            products: [...state.cart.products, products],
-        }
-    })),
+            cartQuantity: 0,
+            totalPrice: 0,
+            products: [],
+        },
+        setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
+            cart: {
+                ...state.cart,
+                cartQuantity: cartQuantity += 1,
+                totalPrice: state.cart.totalPrice += price,
+                products: [...state.cart.products, products],
+            }
+        })),
 
-    quantity: 1,
+        setCartProductsQuantity: (quantity: number, productTitle: string) => set((state: any,) => (
+            {
+                cart: {
+                    ...state.cart,
+                    products: state.cart.products.map((item: productQuantity) => (
+                            
+                        item.title === productTitle ? item = {...item, quantity:quantity}
+                           : item 
+                        
+                    ))
+    }
+            }
+        )),
+
+quantity: 1,
     addQuantity: (value: number) => set((_state: any) => ({
         quantity: value
     })),
 
 
 
-}),
+    }),
+
 
 {
-    name: 'cart-storage', 
-    partialize: (state:any) => ({cart: state.cart }),
-  }
+    name: 'cart-storage',
+        partialize: (state: any) => ({ cart: state.cart }),
+        }
 
-)
+    )
 )
 
 
@@ -67,8 +89,8 @@ export const useUserStore = create(
     devtools(
         persist(userStore, {
             name: 'userLogin',
-            partialize: (state) =>({
-                currentUser:state.currentUser
+            partialize: (state) => ({
+                currentUser: state.currentUser
             })
         })
     )

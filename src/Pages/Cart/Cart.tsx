@@ -10,6 +10,7 @@ import { userRequest } from '../../requestMethods'
 import { Link, useNavigate } from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout'
 import { object } from 'prop-types'
+import ProductsItem from '../../Components/PopularProducts/ProductsItem'
 
 
 const Cart = () => {
@@ -28,44 +29,43 @@ const Cart = () => {
 
   const cart = useStore((state: any) => state.cart)
   const setCart = useStore((state: any) => state.setCart)
-
+  const [totlaPrice,setTotalPrice] = useState(Number) 
   const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
 
   const [stripeToken, setStripeToken] = useState(Object);
   const navigate = useNavigate()
   const setQuantity = useStore((state: any) => state.addQuantity)
   const quantity = useStore((state: any) => state.quantity)
+  const setCartProductsQuantity = useStore((state: any) => state.setCartProductsQuantity)
 
 
 
   const onToken = (token: any) => {
     setStripeToken(token)
   }
-type productQuan = {
-  quantity : Number
-}
+  type productQuan = {
+    quantity: Number,
+
+  }
+  
 
 
-  const handleClick = (type: string, index:number) => {
-    setQuantity(cart.products[index].quantity)
+  const handleClick = async (type: string, productTitle: String, index:number) => {
+   
+    console.log(cart.products[index].quantity)
+   
+   
+
     if (type === 'desc') {
-        quantity > 1 && setQuantity(quantity - 1);
+      quantity > 1 && setQuantity(quantity - 1);
     } else {
-        setQuantity(quantity + 1)
+      setQuantity(quantity + 1)
     }
-    //  cart.products[index].quantity = quantity
+    setCartProductsQuantity(quantity, productTitle)
     
 
 
-    // useStore.setState({
-    //   cart:{
-    //     ...cart,
-    //     products: 
-
-    //   }
-    // })
-
-}
+  }
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -74,13 +74,17 @@ type productQuan = {
           {
             tokenId: stripeToken.id,
             amount: 500 * 100,
-          }
+          },
+          
         );
         navigate("/success")
       } catch (err) { console.log(err) }
     }
     stripeToken && makeRequest()
   }, [stripeToken, cart.totalPrice, navigate])
+
+
+  
 
   return (
     <div className='cartContainer'>
@@ -104,9 +108,9 @@ type productQuan = {
 
         <div className="bottom / flex md:flex-row xs:flex-col justify-between">
           <div className="info ">
-            {cart.products.map((product: product, index:number) => (
+            {cart.products.map((product: product, index: number) => (
 
-              <div key={index}  className="product / flex md:flex-row xs:flex-col  justify-between">
+              <div key={index} className="product / flex md:flex-row xs:flex-col  justify-between">
                 <div className="productDetails flex">
                   <img className='productImg' src={product.img} alt="" />
                   <div className="details flex flex-col p-5 justify-around">
@@ -119,13 +123,13 @@ type productQuan = {
                 <div className="priceDetail flex justify-center items-center flex-col">
 
                   <div className="productAmountContainer flex text-center items-center mb-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("desc", index) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("desc", product.title,index);}} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                     </svg>
 
                     <span className='amount / text-xl  / flex justify-center items-center / md:m-1 xs:my-1 xs:mx-3  '>{product.quantity}</span>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc", index) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc", product.title, index) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                   </div>
@@ -139,7 +143,7 @@ type productQuan = {
             <h1>ORDER SUMMARY</h1>
             <div className="summaryItem">
               <span className="summaryItemText">Subtotal</span>
-              <span className="summaryItemPrice">  {cart.totalPrice}$</span>
+              <span className="summaryItemPrice">  {cart.totalPrice }$</span>
             </div>
             <div className="summaryItem">
               <span className="summaryItemText">Estimated shipping</span>
