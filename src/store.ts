@@ -42,9 +42,11 @@ export const useStore = create(
         setCartTotalPrice: (cartPrice: number, productTotalPrice: number) => set((state: any) => (
             {
                 cart: {
-                    ...state.cart,
-                    totalPrice:  state.cart.products.forEach((item: productQuantity) => (
-                        item.price * item.quantity
+                    ...state.cart,  
+                    totalPrice: state.cart.products.reduce((accumulator :any, item: productQuantity) => (
+                        
+                        accumulator.price *accumulator.quantity + item.price * item.quantity
+                        
 
                     ))
 

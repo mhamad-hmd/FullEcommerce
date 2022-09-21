@@ -165,7 +165,7 @@ const Cart = () => {
             </div>
             <div className="summaryItem font-medium text-2xl">
               <span className="summaryItemText ">Total</span>
-              <span className="summaryItemPrice"> 400$</span>
+              <span className="summaryItemPrice"> {cart.totalPrice + 30 - 6}$</span>
             </div>
             <div>
               <StripeCheckout
