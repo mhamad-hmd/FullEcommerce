@@ -29,15 +29,19 @@ const Cart = () => {
 
   const cart = useStore((state: any) => state.cart)
   const setCart = useStore((state: any) => state.setCart)
-  const [totlaPrice,setTotalPrice] = useState(Number) 
+  const [totlaPrice, setTotalPrice] = useState(Number)
   const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
 
   const [stripeToken, setStripeToken] = useState(Object);
   const navigate = useNavigate()
-  const setQuantity = useStore((state: any) => state.addQuantity)
-  const quantity = useStore((state: any) => state.quantity)
-  const setCartProductsQuantity = useStore((state: any) => state.setCartProductsQuantity)
+  const addQuantity = useStore((state: any) => state.addQuantity)
+  const subtractQuantity = useStore((state: any) => state.subtractQuantity)
+  const setQuantity = useStore((state: any) => state.setQuantity)
 
+  const quantity = useStore((state: any) => state.quantity)
+
+  const setCartProductsQuantity = useStore((state: any) => state.setCartProductsQuantity)
+  const setCartTotalPrice = useStore((state: any) => state.setCartTotalPrice)
 
 
   const onToken = (token: any) => {
@@ -47,23 +51,21 @@ const Cart = () => {
     quantity: Number,
 
   }
-  
 
 
-  const handleClick = async (type: string, productTitle: String, index:number) => {
-   
-    console.log(cart.products[index].quantity)
-   
-   
+  console.log(quantity)
 
+  const handleClick = async (type: string, productTitle: String, index: number, productQuantity: number) => {
+
+    document.getElementById(`confirmBtn${index}`)!.style.display = "block"
     if (type === 'desc') {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1)
-    }
-    setCartProductsQuantity(quantity, productTitle)
-    
+      quantity > 1 && subtractQuantity(productQuantity);
 
+    } else {
+      addQuantity(productQuantity)
+
+    }
+    setCartProductsQuantity(productTitle)
 
   }
 
@@ -75,7 +77,7 @@ const Cart = () => {
             tokenId: stripeToken.id,
             amount: 500 * 100,
           },
-          
+
         );
         navigate("/success")
       } catch (err) { console.log(err) }
@@ -84,7 +86,13 @@ const Cart = () => {
   }, [stripeToken, cart.totalPrice, navigate])
 
 
-  
+  const confirmChange = (productPrice: number, productTitle: String, index: number) => {
+    document.getElementById(`confirmBtn${index}`)!.style.display = "none"
+
+    setCartTotalPrice()
+
+    setQuantity(1)
+  }
 
   return (
     <div className='cartContainer'>
@@ -123,16 +131,18 @@ const Cart = () => {
                 <div className="priceDetail flex justify-center items-center flex-col">
 
                   <div className="productAmountContainer flex text-center items-center mb-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("desc", product.title,index);}} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("desc", product.title, index, product.quantity) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
                     </svg>
 
                     <span className='amount / text-xl  / flex justify-center items-center / md:m-1 xs:my-1 xs:mx-3  '>{product.quantity}</span>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc", product.title, index) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" onClick={() => { handleClick("asc", product.title, index, product.quantity) }} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-6 ">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                   </div>
+
+                  <button id={`confirmBtn${index}`} className={`border bg-teal-700 font-light tracking-wide p-1 text-white hidden `} onClick={() => confirmChange(product.quantity * product.price, product.title, index)}>Confirm</button>
                   <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">${product.price * product.quantity}</span>
                 </div>
               </div>))}
@@ -143,7 +153,7 @@ const Cart = () => {
             <h1>ORDER SUMMARY</h1>
             <div className="summaryItem">
               <span className="summaryItemText">Subtotal</span>
-              <span className="summaryItemPrice">  {cart.totalPrice }$</span>
+              <span className="summaryItemPrice">  {cart.totalPrice}$</span>
             </div>
             <div className="summaryItem">
               <span className="summaryItemText">Estimated shipping</span>

@@ -7,7 +7,8 @@ import { devtools, persist } from 'zustand/middleware';
 
 type productQuantity = {
     title: string,
-    quantity: Number
+    quantity: number,
+    price: number
 }
 
 export const useStore = create(
@@ -27,33 +28,51 @@ export const useStore = create(
             }
         })),
 
-        setCartProductsQuantity: (quantity: number, productTitle: string) => set((state: any,) => (
+        setCartProductsQuantity: ( productTitle: string) => set((state: any,) => (
             {
                 cart: {
                     ...state.cart,
                     products: state.cart.products.map((item: productQuantity) => (
-                            
-                        item.title === productTitle ? item = {...item, quantity:quantity}
-                           : item 
-                        
+                        item.title === productTitle ? (item = { ...item, quantity: state.quantity })
+                        : item
                     ))
-    }
+                }
+            }
+        )),
+        setCartTotalPrice: (cartPrice: number, productTotalPrice: number) => set((state: any) => (
+            {
+                cart: {
+                    ...state.cart,
+                    totalPrice:  state.cart.products.forEach((item: productQuantity) => (
+                        item.price * item.quantity
+
+                    ))
+
+                }
             }
         )),
 
-quantity: 1,
-    addQuantity: (value: number) => set((_state: any) => ({
-        quantity: value
-    })),
+        quantity: 1,
+        setQuantity: (value:number) => set((state:any) => (
+            {
+                quantity:value
+            }
+        )),
+        addQuantity: (productQuantity:number) => set((state: any) => ({
+            quantity: state.quantity = productQuantity + 1
+        })),
+        subtractQuantity: (productQuantity:number) => set((state: any) => ({
+            quantity: state.quantity = productQuantity - 1
+        })),
 
 
 
     }),
 
 
-{
-    name: 'cart-storage',
-        partialize: (state: any) => ({ cart: state.cart }),
+        {
+            name: 'cart-storage',
+            partialize: (state: any) => ({ cart: state.cart }),
         }
 
     )

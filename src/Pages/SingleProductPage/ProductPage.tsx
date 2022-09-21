@@ -37,14 +37,16 @@ const ProductPage = () => {
     const [product, setProduct] = useState<Product>(Object);
     const [size, setSize] = useState(String);
     const [color, setColor] = useState(String);
-    const price = product.price * quantity;
     const cartQuantity = Object.values(cart);
-    
+    console.log(product.price * quantity)
+
+
     useEffect(() => {
         const getProduct = async () => {
             try {
                 const res = await publicRequest.get("/products/find/" + id);
-                setProduct(res.data)
+               await setProduct(res.data)
+
 
             } catch (err) { console.log(err) }
         }
@@ -62,7 +64,7 @@ const ProductPage = () => {
     }
 
     const addToCart = () => {
-        setCart( cartQuantity[0],price, {...product, size, color,quantity})
+        setCart( cartQuantity[0],product.price * quantity, {...product, size, color,quantity})
     }
 
 
@@ -82,7 +84,7 @@ const ProductPage = () => {
                     <h1 className='font-extralight text-4xl'>{product.title}</h1>
                     <p className='my-5'>{product.desc}
                     </p>
-                    <span className='font-thin text-4xl'>$ {price}</span>
+                    <span className='font-thin text-4xl'>$ {product.price * quantity}</span>
 
 
                     <div className="filterContainer flex justify-between ">
