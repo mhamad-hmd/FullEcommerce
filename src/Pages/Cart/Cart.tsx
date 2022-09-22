@@ -53,7 +53,6 @@ const Cart = () => {
   }
 
 
-  console.log(quantity)
 
   const handleClick = async (type: string, productTitle: String, index: number, productQuantity: number) => {
 
@@ -89,7 +88,7 @@ const Cart = () => {
   const confirmChange = (productPrice: number, productTitle: String, index: number) => {
     document.getElementById(`confirmBtn${index}`)!.style.display = "none"
 
-    setCartTotalPrice()
+   setCartTotalPrice()
 
     setQuantity(1)
   }
@@ -165,7 +164,7 @@ const Cart = () => {
             </div>
             <div className="summaryItem font-medium text-2xl">
               <span className="summaryItemText ">Total</span>
-              <span className="summaryItemPrice"> {cart.totalPrice + 30 - 6}$</span>
+              <span className="summaryItemPrice"> {cart.totalPrice }  $</span>
             </div>
             <div>
               <StripeCheckout

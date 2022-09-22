@@ -6,6 +6,7 @@ import { devtools, persist } from 'zustand/middleware';
 
 
 type productQuantity = {
+    forEach(arg0: (objectItem: any) => any): unknown;
     title: string,
     quantity: number,
     price: number
@@ -43,11 +44,13 @@ export const useStore = create(
             {
                 cart: {
                     ...state.cart,  
-                    totalPrice: state.cart.products.reduce((accumulator :any, item: productQuantity) => (
-                        
-                        accumulator.price *accumulator.quantity + item.price * item.quantity
-                        
+                    totalPrice: state.cart.products.length > 1 ?  state.cart.products.reduce(
+                        (acc:any, item: productQuantity) => (
+                             acc.price * acc.quantity + item.price * item.quantity                         
 
+                    ))
+                    : state.cart.products.map((item:productQuantity) => (
+                        item.price * item.quantity
                     ))
 
                 }
@@ -66,6 +69,13 @@ export const useStore = create(
         subtractQuantity: (productQuantity:number) => set((state: any) => ({
             quantity: state.quantity = productQuantity - 1
         })),
+
+        searchInputs: '',
+        setSearchInputs: (Usearch:string) => set((State:any) => (
+            {
+                searchInputs:Usearch
+            }
+        ))
 
 
 

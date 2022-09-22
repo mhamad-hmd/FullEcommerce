@@ -1,23 +1,23 @@
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Popularproducts } from '../../data'
 import ProductsItem from './ProductsItem'
 
 type props = {
   cat: string,
   filters: object,
-  sort: string
+  sort: string,
+  tag:string
 }
 
-const PopularProducts = ({ cat, filters, sort }: props) => {
+const PopularProducts = ({ cat, tag, filters, sort }: props) => {
   const [products, setProducts] = useState(Array);
   const [filteredProducts, setFilteredProducts] = useState(Array)
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(cat ? `http://localhost:3000/api/products?category=${cat}` : `http://localhost:3000/api/products`);
+        const res = await axios.get( tag? `http://localhost:3000/api/products?tag=${tag}`  : cat ? `http://localhost:3000/api/products?category=${cat}`:  `http://localhost:3000/api/products`);
         setProducts(res.data)
        
       } catch (err) { console.log(err) }
@@ -28,6 +28,7 @@ const PopularProducts = ({ cat, filters, sort }: props) => {
   useEffect(() => {
     cat && setFilteredProducts(
       products.filter((item: any) => 
+      // filtering array key and values to match the one of the products 
          Object.entries(filters).every(([key, value]) => 
         item[key].includes(value)
       

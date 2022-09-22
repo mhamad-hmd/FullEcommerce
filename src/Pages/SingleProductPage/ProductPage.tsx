@@ -13,8 +13,10 @@ import { object, string } from 'prop-types'
 
 const ProductPage = () => {
 
-    const setQuantity = useStore((state: any) => state.addQuantity)
+    const addQuantity = useStore((state: any) => state.addQuantity)
     const quantity = useStore((state: any) => state.quantity)
+    const subtractQuantity = useStore((state: any) => state.subtractQuantity)
+
     const setCart = useStore((state: any) => state.setCart)
     const cart = useStore((state: any) => state.cart)
 
@@ -38,7 +40,6 @@ const ProductPage = () => {
     const [size, setSize] = useState(String);
     const [color, setColor] = useState(String);
     const cartQuantity = Object.values(cart);
-    console.log(product.price * quantity)
 
 
     useEffect(() => {
@@ -56,9 +57,10 @@ const ProductPage = () => {
 
     const handleClick = (type: string) => {
         if (type === 'desc') {
-            quantity > 1 && setQuantity(quantity - 1);
+            quantity > 1 && subtractQuantity(quantity)
         } else {
-            setQuantity(quantity + 1)
+            
+            addQuantity(quantity)
         }
 
     }

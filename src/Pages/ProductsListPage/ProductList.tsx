@@ -13,6 +13,7 @@ const ProductList = () => {
 
   const location = useLocation();
   const cat = location.pathname.split("/")[2]
+
   // CRETING A FILTERs STATE
   const [filters, setFilters] = useState(Object)
   const [sort, setSort] = useState('')
@@ -72,7 +73,7 @@ const handleFitlers = (e:any) => {
 
       </div>
 
-      <PopularProducts cat={cat} filters={filters} sort={sort}  />
+      <PopularProducts cat={cat} filters={filters} sort={sort}   />
       <NewsLetter />
       <Footer />
 
