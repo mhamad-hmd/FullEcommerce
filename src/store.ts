@@ -29,13 +29,13 @@ export const useStore = create(
             }
         })),
 
-        setCartProductsQuantity: ( productTitle: string) => set((state: any,) => (
+        setCartProductsQuantity: (productTitle: string) => set((state: any,) => (
             {
                 cart: {
                     ...state.cart,
                     products: state.cart.products.map((item: productQuantity) => (
                         item.title === productTitle ? (item = { ...item, quantity: state.quantity })
-                        : item
+                            : item
                     ))
                 }
             }
@@ -43,40 +43,55 @@ export const useStore = create(
         setCartTotalPrice: (cartPrice: number, productTotalPrice: number) => set((state: any) => (
             {
                 cart: {
-                    ...state.cart,  
-                    totalPrice: state.cart.products.length > 1 ?  state.cart.products.reduce(
-                        (acc:any, item: productQuantity) => (
-                             acc.price * acc.quantity + item.price * item.quantity                         
+                    ...state.cart,
+                    totalPrice: state.cart.products.length > 1 ? state.cart.products.reduce(
+                        (acc: any, item: productQuantity) => (
+                            acc.price * acc.quantity + item.price * item.quantity
 
-                    ))
-                    : state.cart.products.map((item:productQuantity) => (
-                        item.price * item.quantity
-                    ))
+                        ))
+                        : state.cart.products.map((item: productQuantity) => (
+                            item.price * item.quantity
+                        ))
 
                 }
             }
         )),
 
         quantity: 1,
-        setQuantity: (value:number) => set((state:any) => (
+        setQuantity: (value: number) => set((state: any) => (
             {
-                quantity:value
+                quantity: value
             }
         )),
-        addQuantity: (productQuantity:number) => set((state: any) => ({
+        addQuantity: (productQuantity: number) => set((state: any) => ({
             quantity: state.quantity = productQuantity + 1
         })),
-        subtractQuantity: (productQuantity:number) => set((state: any) => ({
+        subtractQuantity: (productQuantity: number) => set((state: any) => ({
             quantity: state.quantity = productQuantity - 1
         })),
 
         searchInputs: '',
-        setSearchInputs: (Usearch:string) => set((State:any) => (
+        setSearchInputs: (Usearch: string) => set((State: any) => (
             {
-                searchInputs:Usearch
+                searchInputs: Usearch
             }
-        ))
+        )),
 
+        category: String,
+        setCategory: (location: string) => set((state: any) => (
+            {
+                category: location
+            }
+
+        )),
+
+        searchTag: String,
+        setSearchTag: (location: string) => set((state: any) => (
+            {
+                searchTag: location
+            }
+
+        ))
 
 
     }),

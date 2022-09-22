@@ -20,8 +20,8 @@ const ProductPage = () => {
     const setCart = useStore((state: any) => state.setCart)
     const cart = useStore((state: any) => state.cart)
 
-    
-    
+
+
     type Product = {
         length: number
         color: Array<string>,
@@ -46,7 +46,7 @@ const ProductPage = () => {
         const getProduct = async () => {
             try {
                 const res = await publicRequest.get("/products/find/" + id);
-               await setProduct(res.data)
+                await setProduct(res.data)
 
 
             } catch (err) { console.log(err) }
@@ -59,14 +59,14 @@ const ProductPage = () => {
         if (type === 'desc') {
             quantity > 1 && subtractQuantity(quantity)
         } else {
-            
+
             addQuantity(quantity)
         }
 
     }
 
     const addToCart = () => {
-        setCart( cartQuantity[0],product.price * quantity, {...product, size, color,quantity})
+        setCart(cartQuantity[0], product.price * quantity, { ...product, size, color, quantity })
     }
 
 

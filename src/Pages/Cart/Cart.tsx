@@ -164,7 +164,7 @@ const Cart = () => {
             </div>
             <div className="summaryItem font-medium text-2xl">
               <span className="summaryItemText ">Total</span>
-              <span className="summaryItemPrice"> {cart.totalPrice }  $</span>
+              <span className="summaryItemPrice"> {cart.totalPrice -6 + 30 }  $</span>
             </div>
             <div>
               <StripeCheckout
@@ -172,7 +172,7 @@ const Cart = () => {
                 token={onToken}
                 billingAddress
                 shippingAddress
-                description='Your total is 20$'
+                description={`Your total is ${cart.totalPrice -6 + 30}$`}
                 amount={2000}
                 stripeKey={key}
               />

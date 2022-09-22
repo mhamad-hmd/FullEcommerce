@@ -6,9 +6,11 @@ import './NavBar.scss'
 
 const Navbar = () => {
 
-  const setSearchInputs = useStore((state:any) => state.setSearchInputs)
+  const setSearchInputs = useStore((state: any) => state.setSearchInputs)
   const cart = useStore((state: any) => state.cart)
-const searchInputs = useStore((state:any) => state.searchInputs )
+  const searchInputs = useStore((state: any) => state.searchInputs)
+
+
 
   return (
     <div className='navContainer flex-wrap md:px-8 xs:px-4 mt-4 text-black'>
@@ -19,11 +21,14 @@ const searchInputs = useStore((state:any) => state.searchInputs )
 
         <div className=' inputWrapper  items-start p-1  flex   '>
 
-          <input type="text" className='searchBar outline-0' placeholder='Search' onChange={(e) => {setSearchInputs(e.target.value)}} />
-        <Link to={`/products/find/${searchInputs}`}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
+          <input type="text" className='searchBar outline-0' placeholder='Search' onChange={(e) => setSearchInputs(e.target.value)} />
+
+          <Link to={`/find/${searchInputs}`}>
+            
+            <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+
           </Link>
 
         </div>

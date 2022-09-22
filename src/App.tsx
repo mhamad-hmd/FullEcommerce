@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import Success from './Pages/Success'
 import { useUserStore } from './store'
+import SearchedProducts from './Pages/searchedProducts/SearchedProducts'
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     <Routes>
       <Route path = "/" element = {<Home/>} />
       <Route path = "/products/:category" element = {<ProductList/>} />
-      <Route path = "/products/find/:tag" element = {<ProductList/>} />
+      <Route path = "/find/:tag" element = {<ProductList/>} />
       <Route path = "/product/:id" element = {<ProductPage/>} />
       <Route path = "/cart" element = {<Cart/>} />
       <Route path = "/login" element = {user? <Navigate to="/"/> : <LogIn/>} />
