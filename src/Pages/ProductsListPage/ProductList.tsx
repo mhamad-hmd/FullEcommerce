@@ -13,28 +13,32 @@ import { useStore } from '../../store'
 
 const ProductList = () => {
 
-  const location = useLocation().pathname
+  const location = useLocation()
 
- const  [currentLocation,serCurrentLocation] = useState(location)
+
+  const [currentLocation, serCurrentLocation] = useState(location);
 
   const category = useStore((state: any) => state.category)
   const searchTag = useStore((state: any) => state.searchTag)
-  
+
   const setSearchTag = useStore((state: any) => state.setSearchTag)
   const setCategory = useStore((state: any) => state.setCategory)
+  const resetQueries = useStore((state: any) => state.resetQueries)
+
 
 
   useEffect(() => {
+    location.pathname.split('/')[1] === "find" ? 
+      setSearchTag(location.pathname.split('/')[2])
+    
+      : location.pathname.split('/')[1] === "products"
+        ? setCategory(location.pathname.split('/')[2])
+        : false
 
-    if (currentLocation.split("/")[1] === 'products') {
-      setCategory(currentLocation.split("/")[2])
-    } else if (currentLocation.split("/")[1] === 'find') {
-      setSearchTag(currentLocation.split("/")[2])
-
-    }
   }, [location])
+  console.log(category + "list")
 
-
+  
 
   // CRETING A FILTERs STATE
   const [filters, setFilters] = useState(Object)
@@ -59,7 +63,7 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
 
-      <h1 className='text-4xl font-bold m-5 '>{location.split("/")[2]}</h1>
+      <h1 className='text-4xl font-bold m-5 '>{location.pathname.split("/")[2]}</h1>
 
       <div className="filtersContainr flex justify-between">
 
@@ -105,4 +109,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default ProductList;

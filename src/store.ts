@@ -77,7 +77,7 @@ export const useStore = create(
             }
         )),
 
-        category: String,
+        category: '',
         setCategory: (location: string) => set((state: any) => (
             {
                 category: location
@@ -85,12 +85,25 @@ export const useStore = create(
 
         )),
 
-        searchTag: String,
+        searchTag: '',
         setSearchTag: (location: string) => set((state: any) => (
             {
                 searchTag: location
             }
 
+        )),
+        resetQueries: () => set((state:any) => (
+            {
+                searchTag: '',
+                category: ''
+            }
+        )),
+
+        products: Array,
+        setProducts: (addProduct:any) => set((state:any) => (
+            {
+                products: addProduct
+            }
         ))
 
 
@@ -99,7 +112,7 @@ export const useStore = create(
 
         {
             name: 'cart-storage',
-            partialize: (state: any) => ({ cart: state.cart }),
+            partialize: (state: any) => ({ cart: state.cart, products:state.products }),
         }
 
     )

@@ -5,43 +5,45 @@ import { useStore } from '../../store'
 import ProductsItem from './ProductsItem'
 
 type props = {
-  category: string,
   filters: object,
   sort: string,
-  searchTag: string,
 }
 
 const PopularProducts = ({ filters, sort }: props) => {
-  const [products, setProducts] = useState(Array);
+
+  
+  const products:any = useStore((state: any) => state.products)
+  const setProducts = useStore((state: any) => state.setProducts)
   const [filteredProducts, setFilteredProducts] = useState(Array)
   const category = useStore((state: any) => state.category)
   const searchTag = useStore((state: any) => state.searchTag)
-  
+
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(true ? `http://localhost:3000/api/products?tag=${searchTag}`
-          : category ? `http://localhost:3000/api/products?categoryegory=${category}`
+        const res = await axios.get(searchTag ? `http://localhost:3000/api/products?tag=${searchTag}`
+          : category ? `http://localhost:3000/api/products?category=${category}`
             : `http://localhost:3000/api/products`);
         setProducts(res.data)
-        console.log(searchTag)
 
       } catch (err) { console.log(err) }
     }
     getProducts()
-  }, [searchTag, category]);
+    console.log("category: " + category + " searchTag: " + searchTag, products)
+  }, [searchTag, category,]);
 
-
+  // console.log(location.pathname.split('/')[1])
 
   useEffect(() => {
-    category && setFilteredProducts(
-      products.filter((item: any) =>
+    category || searchTag && Array.isArray(products) && setFilteredProducts(
+       products.filter((item: any) =>
         // filtering array key and values to match the one of the products 
         Object.entries(filters).every(([key, value]) =>
           item[key].includes(value)
 
         ))
+        
     )
 
   }, [products, category, searchTag, filters])
@@ -64,18 +66,17 @@ const PopularProducts = ({ filters, sort }: props) => {
   }, [sort])
 
 
-  // console.log(category, filters, sort)
   return (
     <div className='grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
-      {true
+      {searchTag || category
         ? filteredProducts.map((item: any) => (
           <ProductsItem item={item} key={item._id} />
         ))
-        : products
+        :  Array.isArray(products)  && products
           .slice(0, 8)
           .map((item: any) => (
             <ProductsItem item={item} key={item._id} />
-          ))
+          )) 
       }
     </div>
   )
