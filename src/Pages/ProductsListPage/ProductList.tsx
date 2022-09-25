@@ -23,90 +23,95 @@ const ProductList = () => {
 
   const setSearchTag = useStore((state: any) => state.setSearchTag)
   const setCategory = useStore((state: any) => state.setCategory)
-  const resetQueries = useStore((state: any) => state.resetQueries)
 
 
 
   useEffect(() => {
-    location.pathname.split('/')[1] === "find" ? 
+    if (location.pathname.split('/')[1] === "find") {
+
       setSearchTag(location.pathname.split('/')[2])
+      console.log('find')
+    }
+
+    else if (location.pathname.split('/')[1] === "products") {
+console.log('products')
+      setCategory(location.pathname.split('/')[2])
+    }
+   
     
-      : location.pathname.split('/')[1] === "products"
-        ? setCategory(location.pathname.split('/')[2])
-        : false
 
   }, [location])
-  console.log(category + "list")
-
-  
-
-  // CRETING A FILTERs STATE
-  const [filters, setFilters] = useState(Object)
-  const [sort, setSort] = useState('')
-
-  const handleFitlers = (e: any) => {
-    // FETCHING USER INPUT VALUE
-    const value = e.target.value;
-
-    setFilters({
-      //SETTING THE FILTERs OLD VALUE WITH NEW ONE IN AN OBJECT
-      ...filters,
-      // FETCHING THE TARGETS NAME AND ASSIGNING INPUTS VALUE TO IT
-      [e.target.name]: value
-    })
-  }
+console.log(searchTag + "list")
 
 
-  return (
-    <div className='productListContainer'>
 
-      <Navbar />
-      <Announcement />
+// CRETING A FILTERs STATE
+const [filters, setFilters] = useState(Object)
+const [sort, setSort] = useState('')
 
-      <h1 className='text-4xl font-bold m-5 '>{location.pathname.split("/")[2]}</h1>
+const handleFitlers = (e: any) => {
+  // FETCHING USER INPUT VALUE
+  const value = e.target.value;
 
-      <div className="filtersContainr flex justify-between">
+  setFilters({
+    //SETTING THE FILTERs OLD VALUE WITH NEW ONE IN AN OBJECT
+    ...filters,
+    // FETCHING THE TARGETS NAME AND ASSIGNING INPUTS VALUE TO IT
+    [e.target.name]: value
+  })
+}
 
-        <div className='filtersProdcts filtersItems / m-5  md:block / xs:flex xs:flex-col'>
-          <span className='text-xl font-semibold md:mr-5 xs:mr-0  '>Filters Products:</span>
 
-          <select className='text-lg bg-transparent' name="color" onChange={e => handleFitlers(e)} id="">
-            <option value="Color" disabled >Color</option>
-            <option >Navy</option>
-            <option >Gray</option>
-            <option >Black</option>
-          </select>
+return (
+  <div className='productListContainer'>
 
-          <select className='text-lg' onChange={handleFitlers} name="size" id="">
-            <option disabled >Size</option>
-            <option>SM</option>
-            <option>MD</option>
-            <option>LG</option>
-          </select>
+    <Navbar />
+    <Announcement />
 
-        </div>
+    <h1 className='text-4xl font-bold m-5 '>{location.pathname.split("/")[2]}</h1>
 
-        <div className='filtersSort filtersItems /  m-5   '>
-          <span className='text-xl  font-semibold '>Sort Products:</span>
+    <div className="filtersContainr flex justify-between">
 
-          <select className='text-lg ' name="sort" id="" onChange={e => setSort(e.target.value)} >
-            <option value="newest" >Newest</option>
-            <option value="asc">Price (asc)</option>
-            <option value="desc">Price (desc)</option>
-          </select>
+      <div className='filtersProdcts filtersItems / m-5  md:block / xs:flex xs:flex-col'>
+        <span className='text-xl font-semibold md:mr-5 xs:mr-0  '>Filters Products:</span>
 
-        </div>
+        <select className='text-lg bg-transparent' name="color" onChange={e => handleFitlers(e)} id="">
+          <option value="Color" disabled >Color</option>
+          <option >Navy</option>
+          <option >Gray</option>
+          <option >Black</option>
+        </select>
+
+        <select className='text-lg' onChange={handleFitlers} name="size" id="">
+          <option disabled >Size</option>
+          <option>SM</option>
+          <option>MD</option>
+          <option>LG</option>
+        </select>
 
       </div>
 
-      <PopularProducts filters={filters} sort={sort} />
-      <NewsLetter />
-      <Footer />
+      <div className='filtersSort filtersItems /  m-5   '>
+        <span className='text-xl  font-semibold '>Sort Products:</span>
+
+        <select className='text-lg ' name="sort" id="" onChange={e => setSort(e.target.value)} >
+          <option value="newest" >Newest</option>
+          <option value="asc">Price (asc)</option>
+          <option value="desc">Price (desc)</option>
+        </select>
+
+      </div>
 
     </div>
 
+    <PopularProducts filters={filters} sort={sort} />
+    <NewsLetter />
+    <Footer />
 
-  )
+  </div>
+
+
+)
 }
 
 export default ProductList;

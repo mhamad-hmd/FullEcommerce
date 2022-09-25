@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.scss'
 import Home from './Pages/Home'
@@ -12,14 +12,20 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Success from './Pages/Success'
-import { useUserStore } from './store'
+import { useStore, useUserStore } from './store'
 import SearchedProducts from './Pages/searchedProducts/SearchedProducts'
 
 
 function App() {
+
   const user =  useUserStore((state:any) => state.currentUser)
+
+ 
+ 
+  
   return (
     
    <Router>

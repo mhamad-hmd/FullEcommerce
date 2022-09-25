@@ -112,7 +112,7 @@ export const useStore = create(
 
         {
             name: 'cart-storage',
-            partialize: (state: any) => ({ cart: state.cart, products:state.products }),
+            partialize: (state: any) => ({ cart: state.cart, searchTag:state.searchTag }),
         }
 
     )

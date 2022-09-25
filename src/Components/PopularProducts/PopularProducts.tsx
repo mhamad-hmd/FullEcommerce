@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useStore } from '../../store'
 import ProductsItem from './ProductsItem'
 
@@ -17,13 +18,17 @@ const PopularProducts = ({ filters, sort }: props) => {
   const [filteredProducts, setFilteredProducts] = useState(Array)
   const category = useStore((state: any) => state.category)
   const searchTag = useStore((state: any) => state.searchTag)
+  const location = useLocation()
+  const resetQueries = useStore((state: any) => state.resetQueries)
 
 
+  
   useEffect(() => {
     const getProducts = async () => {
       try {
+        console.log(searchTag + 1)
         const res = await axios.get(searchTag ? `http://localhost:3000/api/products?tag=${searchTag}`
-          : category ? `http://localhost:3000/api/products?category=${category}`
+          : category ? `http://localhost:3000/api/products?category=${category}`  
             : `http://localhost:3000/api/products`);
         setProducts(res.data)
 
@@ -31,22 +36,29 @@ const PopularProducts = ({ filters, sort }: props) => {
     }
     getProducts()
     console.log("category: " + category + " searchTag: " + searchTag, products)
-  }, [searchTag, category,]);
+  }, [searchTag, category,location]);
 
   // console.log(location.pathname.split('/')[1])
+
+  useEffect(() => {
+    location.pathname.split('/')[1] !== "find" && location.pathname.split('/')[1] !== "products" 
+    &&
+    resetQueries()
+  }, [location])
+
 
   useEffect(() => {
     category || searchTag && Array.isArray(products) && setFilteredProducts(
        products.filter((item: any) =>
         // filtering array key and values to match the one of the products 
-        Object.entries(filters).every(([key, value]) =>
+          Object.entries(filters || {}).every(([key, value]) =>
           item[key].includes(value)
 
         ))
         
     )
 
-  }, [products, category, searchTag, filters])
+  }, [products, category, searchTag, filters, location])
 
 
   useEffect(() => {
