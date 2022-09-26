@@ -26,10 +26,14 @@
     
 }
 
-.filterColor:focus{
-    border-color: teal !important;
-    
-    
+.filterColorContainer{
+    border: none;
+}
+
+
+.filterColorContainerActive{
+    border:2px solid teal;
+    border-radius: 50%;
 }
 
 .amount {

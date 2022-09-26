@@ -37,6 +37,7 @@ const Cart = () => {
   const addQuantity = useStore((state: any) => state.addQuantity)
   const subtractQuantity = useStore((state: any) => state.subtractQuantity)
   const setQuantity = useStore((state: any) => state.setQuantity)
+  const removeProduct = useStore((state: any) => state.removeProduct)
 
   const quantity = useStore((state: any) => state.quantity)
 
@@ -85,9 +86,8 @@ const Cart = () => {
   }, [stripeToken, cart.totalPrice, navigate])
 
 
-  const confirmChange = (productPrice: number, productTitle: String, index: number) => {
+  const confirmChange = (productPrice: number, product: any, index: number) => {
     document.getElementById(`confirmBtn${index}`)!.style.display = "none"
-
    setCartTotalPrice()
 
     setQuantity(1)
@@ -141,10 +141,13 @@ const Cart = () => {
                     </svg>
                   </div>
 
-                  <button id={`confirmBtn${index}`} className={`border bg-teal-700 font-light tracking-wide p-1 text-white hidden `} onClick={() => confirmChange(product.quantity * product.price, product.title, index)}>Confirm</button>
+                  <button id={`confirmBtn${index}`} className={`border bg-teal-700 font-light tracking-wide p-1 text-white hidden `} onClick={() => confirmChange(product.quantity * product.price, product, index)}>Confirm</button>
                   <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">${product.price * product.quantity}</span>
+                <span className='cursor-pointer' onClick={() => removeProduct(index)}>Remove</span>
+                
                 </div>
-              </div>))}
+                
+              </div> ) )}
 
           </div>
 

@@ -69,6 +69,11 @@ const ProductPage = () => {
         setCart(cartQuantity[0], product.price * quantity, { ...product, size, color, quantity })
     }
 
+const optionHandeler = (item:any) => {
+    setColor(item)
+    document.getElementById('filterColorContainer')?.classList.add('filterColorContainerActive')
+}
+
 
     return (
         <div className='ProductPageContainer'>
@@ -95,7 +100,9 @@ const ProductPage = () => {
                             <span className="filterTitle font-extralight text-xl">Color</span>
                             {product.color?.map((item: string) => (
 
-                                <option style={{ background: `${item}`, border: `${item} 1px solid`}} className="filterColor" key={item} onClick={() => setColor(item)}></option>
+                                <div id='filterColorContainer' className='filterColorContainer'>
+                                    <option style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item} onClick={() =>optionHandeler(item) }></option>
+                                </div>
                             ))}
 
 

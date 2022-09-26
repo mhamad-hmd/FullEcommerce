@@ -23,11 +23,19 @@ export const useStore = create(
         setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
             cart: {
                 ...state.cart,
-                cartQuantity: cartQuantity += 1,
+                
                 totalPrice: state.cart.totalPrice += price,
                 products: [...state.cart.products, products],
+                cartQuantity: state.cart.products.length
             }
         })),
+        removeProduct:(rmv:number) => set((state:any) => (
+          { cart: {
+            ...state.cart,
+                products: state.cart.products.filter((item:any, index:number) =>  item[index] != item[0] )
+            }
+        } 
+        )),
 
         setCartProductsQuantity: (productTitle: string) => set((state: any,) => (
             {
@@ -46,9 +54,9 @@ export const useStore = create(
                     ...state.cart,
                     totalPrice: state.cart.products.length > 1 ? state.cart.products.reduce(
                         (acc: any, item: productQuantity) => (
-                            acc.price * acc.quantity + item.price * item.quantity
+                            acc + item.price * item.quantity
 
-                        ))
+                        ),0)
                         : state.cart.products.map((item: productQuantity) => (
                             item.price * item.quantity
                         ))
@@ -105,6 +113,7 @@ export const useStore = create(
                 products: addProduct
             }
         )),
+       
 
         checkQuery: false,
         setCheckQuery : () => set ((state:any) => (
