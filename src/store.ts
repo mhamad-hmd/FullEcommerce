@@ -104,10 +104,19 @@ export const useStore = create(
             {
                 products: addProduct
             }
-        ))
+        )),
 
-
+        checkQuery: false,
+        setCheckQuery : () => set ((state:any) => (
+            
+            {
+                checkQuery: state.searchTag || state.category ? true : false
+            }
+        )),
+        
     }),
+
+    
 
 
         {

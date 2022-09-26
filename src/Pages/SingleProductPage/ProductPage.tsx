@@ -95,7 +95,7 @@ const ProductPage = () => {
                             <span className="filterTitle font-extralight text-xl">Color</span>
                             {product.color?.map((item: string) => (
 
-                                <option style={{ background: `${item}` }} className="filterColor" key={item} onClick={() => setColor(item)}></option>
+                                <option style={{ background: `${item}`, border: `${item} 1px solid`}} className="filterColor" key={item} onClick={() => setColor(item)}></option>
                             ))}
 
 

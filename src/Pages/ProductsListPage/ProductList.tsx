@@ -5,7 +5,7 @@ import Announcement from '../../Components/Announcement/Announcement'
 import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import NewsLetter from '../../Components/NewsLetter/NewsLetter'
-import PopularProducts from '../../Components/PopularProducts/PopularProducts'
+import PopularProducts from '../../Components/Currentproducts/CurrentProducts'
 import { useLocation } from 'react-router-dom'
 import { useStore } from '../../store'
 
@@ -29,19 +29,17 @@ const ProductList = () => {
   useEffect(() => {
     if (location.pathname.split('/')[1] === "find") {
 
-      setSearchTag(location.pathname.split('/')[2])
-      console.log('find')
+     return (setSearchTag(location.pathname.split('/')[2]))
     }
 
     else if (location.pathname.split('/')[1] === "products") {
-console.log('products')
-      setCategory(location.pathname.split('/')[2])
+     return (setCategory(location.pathname.split('/')[2]) ,
+     setSearchTag('')
+     )
     }
-   
-    
 
   }, [location])
-console.log(searchTag + "list")
+console.log("searchTag " + searchTag + " list " + " category " + category + " list ")
 
 
 

@@ -1,97 +1,41 @@
-
-import axios from 'axios'
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useStore } from '../../store'
-import ProductsItem from './ProductsItem'
+import ProductsItem from '../Currentproducts/ProductsItem';
 
-type props = {
-  filters: object,
-  sort: string,
-}
-
-const PopularProducts = ({ filters, sort }: props) => {
-
-  
-  const products:any = useStore((state: any) => state.products)
-  const setProducts = useStore((state: any) => state.setProducts)
-  const [filteredProducts, setFilteredProducts] = useState(Array)
-  const category = useStore((state: any) => state.category)
-  const searchTag = useStore((state: any) => state.searchTag)
-  const location = useLocation()
-  const resetQueries = useStore((state: any) => state.resetQueries)
+const PopularProducts = () => {
+    const [popProducts, setPopProducts] = useState([])
+    useEffect(() => {
+        const getProducts = async () => {
 
 
-  
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        console.log(searchTag + 1)
-        const res = await axios.get(searchTag ? `http://localhost:3000/api/products?tag=${searchTag}`
-          : category ? `http://localhost:3000/api/products?category=${category}`  
-            : `http://localhost:3000/api/products`);
-        setProducts(res.data)
 
-      } catch (err) { console.log(err) }
-    }
-    getProducts()
-    console.log("category: " + category + " searchTag: " + searchTag, products)
-  }, [searchTag, category,location]);
+            try {
+                const res = await axios.get((
+                    `http://localhost:3000/api/products`
+                ))
 
-  // console.log(location.pathname.split('/')[1])
-
-  useEffect(() => {
-    location.pathname.split('/')[1] !== "find" && location.pathname.split('/')[1] !== "products" 
-    &&
-    resetQueries()
-  }, [location])
+                setPopProducts(res.data)
 
 
-  useEffect(() => {
-    category || searchTag && Array.isArray(products) && setFilteredProducts(
-       products.filter((item: any) =>
-        // filtering array key and values to match the one of the products 
-          Object.entries(filters || {}).every(([key, value]) =>
-          item[key].includes(value)
 
-        ))
-        
+            } catch (err) { console.log(err) }
+        }
+
+        getProducts()
+    }, []);
+
+    return (
+        <div className='grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
+            {
+                Array.isArray(popProducts) && popProducts
+                    .slice(0, 8)
+                    .map((item: any) => (
+                        <ProductsItem item={item} key={item._id} />
+                    ))
+            }
+
+        </div>
     )
-
-  }, [products, category, searchTag, filters, location])
-
-
-  useEffect(() => {
-    if (sort === "newest") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a: any, b: any) => a.createdAt - b.createdAt)
-      );
-    } else if (sort === "asc") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a: any, b: any) => a.price - b.price)
-      )
-    } else if (sort === "desc") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a: any, b: any) => b.price - a.price)
-      )
-    }
-  }, [sort])
-
-
-  return (
-    <div className='grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
-      {searchTag || category
-        ? filteredProducts.map((item: any) => (
-          <ProductsItem item={item} key={item._id} />
-        ))
-        :  Array.isArray(products)  && products
-          .slice(0, 8)
-          .map((item: any) => (
-            <ProductsItem item={item} key={item._id} />
-          )) 
-      }
-    </div>
-  )
 }
 
 export default PopularProducts

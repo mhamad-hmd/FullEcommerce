@@ -10,7 +10,7 @@ import { userRequest } from '../../requestMethods'
 import { Link, useNavigate } from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout'
 import { object } from 'prop-types'
-import ProductsItem from '../../Components/PopularProducts/ProductsItem'
+import ProductsItem from '../../Components/Currentproducts/ProductsItem'
 
 
 const Cart = () => {
