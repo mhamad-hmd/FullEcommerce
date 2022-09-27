@@ -65,7 +65,7 @@ const Cart = () => {
       addQuantity(productQuantity)
 
     }
-    setCartProductsQuantity(productTitle)
+    setCartProductsQuantity(index)
 
   }
 
@@ -93,6 +93,13 @@ const Cart = () => {
     setQuantity(1)
   }
 
+  const filterProducts = (index:number) => {
+    const rmvProduct = cart.cartProducts.filter((item:any, i:number) => i !== index )
+     removeProduct(rmvProduct) 
+     console.log(rmvProduct, index)
+     setCartTotalPrice()
+  }
+
   return (
     <div className='cartContainer'>
       <Navbar />
@@ -115,7 +122,7 @@ const Cart = () => {
 
         <div className="bottom / flex md:flex-row xs:flex-col justify-between">
           <div className="info ">
-            {cart.products.map((product: product, index: number) => (
+            {cart.cartProducts.map((product: product, index: number) => (
 
               <div key={index} className="product / flex md:flex-row xs:flex-col  justify-between">
                 <div className="productDetails flex">
@@ -143,7 +150,7 @@ const Cart = () => {
 
                   <button id={`confirmBtn${index}`} className={`border bg-teal-700 font-light tracking-wide p-1 text-white hidden `} onClick={() => confirmChange(product.quantity * product.price, product, index)}>Confirm</button>
                   <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">${product.price * product.quantity}</span>
-                <span className='cursor-pointer' onClick={() => removeProduct(index)}>Remove</span>
+                <span className='cursor-pointer' onClick={() => filterProducts(index)}>Remove</span>
                 
                 </div>
                 

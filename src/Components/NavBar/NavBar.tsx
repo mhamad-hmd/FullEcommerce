@@ -10,7 +10,9 @@ const Navbar = () => {
   const cart = useStore((state: any) => state.cart)
   const searchInputs = useStore((state: any) => state.searchInputs)
 
-
+  const handleAccount = () => {
+    document.getElementById('accountOptions')?.classList.add('active')
+  }
 
   return (
     <div className='navContainer flex-wrap md:px-8 xs:px-4 mt-4 text-black'>
@@ -19,32 +21,44 @@ const Navbar = () => {
 
         <span className='md:block xs:hidden'>ENG</span>
 
-        <div className=' inputWrapper  items-start p-1  flex   '>
+        <div className=' inputWrapper  items-start md:p-1 xs:px-1  flex   '>
 
           <input type="text" className='searchBar outline-0' placeholder='Search' onChange={(e) => setSearchInputs(e.target.value)} />
 
-          <Link to={`/find/${searchInputs}`}>
-            
-            <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <Link className='m-auto' to={`/find/${searchInputs}`}>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="md:w-6 md:h-6 xs:w-5 xs:h-5  m-auto">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
 
           </Link>
-
         </div>
+
+
       </div>
-      <Link to={`/`}>
+      <Link className='px-2 m-auto  ' to={`/`}>
         <div className='navItemsCenter navTitle / text-center md:text-5xl font-bold xs:text-2xl / m-auto '>ESHOP</div>
       </Link>
 
       <div className='navEnd  navItemsRight / flex  md:justify-end  xs:justify-center items-center gap-2 / '>
+        <div className='relative grid justify-center items-center'>
+          <div className='w-32'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={handleAccount} className="accountIcon w-9 h-9 relative m-auto">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <div id='accountOptions' className='accountOptions / grid justify-center m-auto gap-x-2  / py-2  '>
 
-        <h1>REGISTER</h1>
+            <Link className='accOption relative' to={`/login`}>
 
-        <Link to={`/login`}>
-          <h1>SIGNIN</h1>
-        </Link>
+              <h1>REGISTER</h1>
+            </Link>
 
+            <Link className='accOption relative' to={`/login`}>
+              <h1>SIGNIN</h1>
+            </Link>
+          </div>
+        </div>
         <div className="font-sans block md:mt-4 lg:inline-block lg:mt-0 lg:ml-6 align-middle text-black hover:text-gray-700">
           <Link to={`/cart`}>
 

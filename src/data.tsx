@@ -47,7 +47,7 @@ export const categories = [
         id: 2,
         img: loungeWear,
         title: "LOUNGEWEAR ",
-        cat: "loungeWear"
+        cat: "loungewear"
     },
     {
         id: 3,

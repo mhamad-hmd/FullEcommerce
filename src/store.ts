@@ -18,31 +18,31 @@ export const useStore = create(
         cart: {
             cartQuantity: 0,
             totalPrice: 0,
-            products: [],
+            cartProducts: [],
         },
         setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
             cart: {
                 ...state.cart,
                 
                 totalPrice: state.cart.totalPrice += price,
-                products: [...state.cart.products, products],
-                cartQuantity: state.cart.products.length
+                cartProducts: [...state.cart.cartProducts, products],
+                cartQuantity: state.cart.cartProducts.length
             }
         })),
-        removeProduct:(rmv:number) => set((state:any) => (
+        removeProduct:(filteredProducts:Array<object>) => set((state:any) => (
           { cart: {
             ...state.cart,
-                products: state.cart.products.filter((item:any, index:number) =>  item[index] != item[0] )
+            cartProducts: filteredProducts
             }
         } 
         )),
 
-        setCartProductsQuantity: (productTitle: string) => set((state: any,) => (
+        setCartProductsQuantity: (index: number) => set((state: any,) => (
             {
                 cart: {
                     ...state.cart,
-                    products: state.cart.products.map((item: productQuantity) => (
-                        item.title === productTitle ? (item = { ...item, quantity: state.quantity })
+                    cartProducts: state.cart.cartProducts.map((item: productQuantity, i:Number) => (
+                        i === index ? (item = { ...item, quantity: state.quantity })
                             : item
                     ))
                 }
@@ -52,12 +52,12 @@ export const useStore = create(
             {
                 cart: {
                     ...state.cart,
-                    totalPrice: state.cart.products.length > 1 ? state.cart.products.reduce(
+                    totalPrice: state.cart.cartProducts.length > 1 ? state.cart.cartProducts.reduce(
                         (acc: any, item: productQuantity) => (
                             acc + item.price * item.quantity
 
                         ),0)
-                        : state.cart.products.map((item: productQuantity) => (
+                        : state.cart.cartProducts.map((item: productQuantity) => (
                             item.price * item.quantity
                         ))
 

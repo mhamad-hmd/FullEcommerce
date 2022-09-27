@@ -39,6 +39,7 @@ const ProductPage = () => {
     const [product, setProduct] = useState<Product>(Object);
     const [size, setSize] = useState(String);
     const [color, setColor] = useState(String);
+    const [productindex, setProductIndex] = useState(Number)
     const cartQuantity = Object.values(cart);
 
 
@@ -65,14 +66,14 @@ const ProductPage = () => {
 
     }
 
-    const addToCart = () => {
+    const addToCart = ( ) => {
         setCart(cartQuantity[0], product.price * quantity, { ...product, size, color, quantity })
     }
 
-const optionHandeler = (item:any) => {
-    setColor(item)
-    document.getElementById('filterColorContainer')?.classList.add('filterColorContainerActive')
-}
+    const optionHandeler = (item: any) => {
+        setColor(item)
+        document.getElementById('filterColorContainer')?.classList.add('filterColorContainerActive')
+    }
 
 
     return (
@@ -101,7 +102,7 @@ const optionHandeler = (item:any) => {
                             {product.color?.map((item: string) => (
 
                                 <div id='filterColorContainer' className='filterColorContainer'>
-                                    <option style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item} onClick={() =>optionHandeler(item) }></option>
+                                    <option style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item} onClick={() => optionHandeler(item)}></option>
                                 </div>
                             ))}
 
