@@ -27,11 +27,14 @@ const Cart = () => {
 
   }
 
+  
+
   const cart = useStore((state: any) => state.cart)
   const setCart = useStore((state: any) => state.setCart)
   const [totlaPrice, setTotalPrice] = useState(Number)
   const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
 
+  const setCartQuantity = useStore((state: any) => state.setCartQuantity)
   const [stripeToken, setStripeToken] = useState(Object);
   const navigate = useNavigate()
   const addQuantity = useStore((state: any) => state.addQuantity)
@@ -52,7 +55,7 @@ const Cart = () => {
     quantity: Number,
 
   }
-
+console.log(cart.cartProducts.length)
 
 
   const handleClick = async (type: string, productTitle: String, index: number, productQuantity: number) => {
@@ -98,6 +101,7 @@ const Cart = () => {
      removeProduct(rmvProduct) 
      console.log(rmvProduct, index)
      setCartTotalPrice()
+     setCartQuantity()
   }
 
   return (

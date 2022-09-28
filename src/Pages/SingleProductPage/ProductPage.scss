@@ -17,23 +17,33 @@
 }
 
 .filterColor {
-    height: 20px;
-    width: 20px;
+
     border-radius: 50%;
     outline: none;
-    
-    
-    
+    height: 100%;
+    width: 100%;
+    width: 23.3px;
+    height: 23.7px;
+
 }
 
 .filterColorContainer{
     border: none;
+    margin: 0;
+    padding: 0;
+    overflow-X: hidden;
+    position: relative;
+    // height: 20px;
+    // width: 20px;
 }
+
 
 
 .filterColorContainerActive{
     border:2px solid teal;
     border-radius: 50%;
+
+    
 }
 
 .amount {

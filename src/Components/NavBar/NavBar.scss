@@ -1,79 +1,105 @@
-
-
-.navContainer{
+.navContainer {
     color: black;
-    display: flex;
-    justify-content:space-between ;
-    max-height: 40px;
-    height: 100%;
-    
+    height: 60px;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
+    background-color: transparent;
+}
 
-    background-color : transparent; 
-
-  
-  }
-
-  
-
-.navItemsStart{
+.navItemsStart {
     flex: 1;
     align-items: center;
 }
 
-.navItemsCenter{
-    flex:1
+.navItemsCenter {
+    flex: 1;
 }
 
-.navItemsRight{
-    flex:1
-    
+.navItemsRight {
+    flex: 1;
 }
 
-.inputWrapper{
+.inputWrapper {
     align-items: center;
-    border: 1px solid rgb(201, 190, 190) ;
+    border: 1px solid rgb(201, 190, 190);
     border-radius: 5px;
 }
 
-
-.searchBar{
+.searchBar {
     max-width: 180px;
     width: 100%;
 }
 
-.accountOptions{
+.accountOptions {
     position: absolute;
     z-index: 2;
-
-    height: 0;
-    transition: 0.5s;
     justify-self: center;
-    transform: translateY(40px);
-
+    transform: translateY(25px);
+    height: auto;
+    overflow-y: hidden;
+    pointer-events: none;
+    margin-top: 5px;
 }
 
-.accOption{
-    transform: translateY(-30px);
-    background-color: gray;
-    transition: 0.5s;
+.accountIcon {
+    z-index: 3;
+}
+.accOption {
+    transform: translateY(-50px);
+    transition: 0.2s ease;
     visibility: hidden;
-
 }
-.accountIcon:hover .accOption{
+
+.accountIcon:hover .accOption {
+    transform: translateY(0px);
+
     visibility: visible;
-    transform: translateY(-30px);
+}
+.accountIcon:hover .accountOptions {
+    pointer-events: auto;
 }
 
+.xsSearchBarContainer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    transform: translateX(-600px);
+    display: none;
+    transition: 0.5s ease;
+    
+}
 
-
-
-
-.accountOptions h1 {
-    font-weight: 400;
-   
+.activateSearchBar {
+    display: block;
+    transform: translateX(0px);
 
 }
 
+.xsSearchBar {
+    height: 100%;
+    width: 100%;
+}
+
+.blackPage {
+    background-color: black;
+    opacity: 60%;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    visibility: hidden;
+    transform: translateX(-600px);
+    transition: 0.5s ease;
+
+}
+
+.ActivateBlackPage {
+    visibility: visible;
+    transform: translateX(0);
+    transition: 0.5s ease;
+    
+}

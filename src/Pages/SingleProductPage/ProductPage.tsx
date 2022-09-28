@@ -102,7 +102,7 @@ const ProductPage = () => {
                             {product.color?.map((item: string) => (
 
                                 <div id='filterColorContainer' className='filterColorContainer'>
-                                    <option style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item} onClick={() => optionHandeler(item)}></option>
+                                    <input  style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item}  onClick={() => optionHandeler(item)}></input>
                                 </div>
                             ))}
 
@@ -112,7 +112,7 @@ const ProductPage = () => {
 
                         <div className="filter / flex">
                             <span className="filterTitle font-extralight text-xl">Size</span>
-                            <select name="" id="" className="filterSize ml-2 p-1 outline-none" onChange={(e) => setSize(e.target.value)}>
+                            <select name="" required id="" className="filterSize ml-2 p-1 outline-none" onChange={(e) => setSize(e.target.value)}>
                                 <option value="" hidden></option>
                                 {product.size?.map((item: string) => (
                                     <option key={item}>{item}</option>

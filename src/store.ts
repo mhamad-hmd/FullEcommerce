@@ -23,12 +23,18 @@ export const useStore = create(
         setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
             cart: {
                 ...state.cart,
-                
                 totalPrice: state.cart.totalPrice += price,
                 cartProducts: [...state.cart.cartProducts, products],
                 cartQuantity: state.cart.cartProducts.length
             }
         })),
+        setCartQuantity:() => set((state:any) => (
+            { cart: {
+              ...state.cart,
+              cartQuantity: state.cart.cartProducts.length
+              }
+          } 
+          )),
         removeProduct:(filteredProducts:Array<object>) => set((state:any) => (
           { cart: {
             ...state.cart,
