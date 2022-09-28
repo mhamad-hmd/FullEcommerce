@@ -55,7 +55,6 @@ const Cart = () => {
     quantity: Number,
 
   }
-console.log(cart.cartProducts.length)
 
 
   const handleClick = async (type: string, productTitle: String, index: number, productQuantity: number) => {

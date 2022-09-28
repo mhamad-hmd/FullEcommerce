@@ -11,7 +11,7 @@ const PopularProducts = () => {
 
             try {
                 const res = await axios.get((
-                    `http://localhost:3000/api/products`
+                    `https://full-ecommerce-api.herokuapp.com/api/products`
                 ))
 
                 setPopProducts(res.data)

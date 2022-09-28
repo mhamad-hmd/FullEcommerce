@@ -37,10 +37,9 @@ const CurrentProducts = ({ filters, sort, reset }: props) => {
       const getProducts = async () => {
         try {
           console.log(searchTag + 1)
-          const res = await axios.get((searchTag ? `http://localhost:3000/api/products?tag=${searchTag}`
-            : category ? `http://localhost:3000/api/products?category=${category}`
+          const res = await axios.get((searchTag ? `https://full-ecommerce-api.herokuapp.com/api/products?tag=${searchTag}`
+            : category ? `https://full-ecommerce-api.herokuapp.com/api/products?category=${category}`
               : ''
-            // : `http://localhost:3000/api/products`
           ))
 
           setProducts(res.data)

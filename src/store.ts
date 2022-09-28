@@ -58,14 +58,14 @@ export const useStore = create(
             {
                 cart: {
                     ...state.cart,
-                    totalPrice: state.cart.cartProducts.length > 1 ? state.cart.cartProducts.reduce(
+                    totalPrice:  state.cart.cartProducts.reduce(
                         (acc: any, item: productQuantity) => (
                             acc + item.price * item.quantity
 
                         ),0)
-                        : state.cart.cartProducts.map((item: productQuantity) => (
-                            item.price * item.quantity
-                        ))
+                        // : state.cart.cartProducts.map((item: productQuantity) => (
+                        //     item.price * item.quantity
+                        // ))   
 
                 }
             }
