@@ -100,19 +100,19 @@ const Navbar = () => {
         <div className='navEnd  navItemsRight / flex  md:justify-end  xs:justify-center items-center gap-2 / '>
           <div className='relative  justify-center items-center'>
             <div className=' grid accountIcon '>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={handleAccount} className=" md:w-9 md:h-9 xs:w-7 xs:h-7  m-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={handleAccount} className=" md:w-9 md:h-9 xs:w-9 xs:h-9  m-auto">
                 <path strokeLinecap="round" className='' strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
 
               <div id='' className='accountOptions / grid  justify-center m-auto gap-x-2  /py-1   '>
 
-                <Link className='accOption bg-slate-50/50 / text-md font-bol ' to={`/register`}>
+                <Link className='accOption bg-slate-50/50  ' to={`/register`}>
 
-                  <h1 className='font-normal tracking-wide text-md'>Register</h1>
+                  <h1 className='font-normal tracking-wide text-md p-1 '>Register</h1>
                 </Link>
 
                 <Link className='accOption bg-slate-50/50' to={`/login`}>
-                  <h1>Signin</h1>
+                  <h1 className='font-normal tracking-wide text-md p-1'>Signin</h1>
                 </Link>
               </div>
             </div>
@@ -121,10 +121,10 @@ const Navbar = () => {
             <Link to={`/cart`}>
 
               <button role="button" className="relative flex">
-                <svg className="flex-1 md:w-8 md:h-8 xs:h-7 xs:w-7  fill-current " viewBox="0 0 24 24">
+                <svg className="flex-1 w-8 h-8  fill-current " viewBox="0 0 24 24">
                   <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z" />
                 </svg>
-                <span className="absolute  right-0 top-0 rounded-full bg-red-600 xs:w-3.5 xs:h-3.5 md:h-4 md:w-4  top right p-0 m-0 text-white font-mono xs:text-xs md:text-sm  leading-tight text-center">
+                <span className="absolute  right-0 top-0 rounded-full bg-red-600  h-4 w-4  top right p-0 m-0 text-white font-mono xs:text-xs md:text-sm  leading-tight text-center">
                   {cart.cartProducts.length}
                 </span>
               </button>
