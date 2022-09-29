@@ -35,7 +35,7 @@ function App() {
       <Route path = "/product/:id" element = {<ProductPage/>} />
       <Route path = "/cart" element = {<Cart/>} />
       <Route path = "/login" element = {isEmpty ? <Navigate to="/"/> : <LogIn/>} />
-      <Route path = "/register" element = {user? <Navigate to="/"/> : <Register/>} />
+      <Route path = "/register" element = {isEmpty ?  <Navigate to="/"/> : <Register/>} />
       <Route path = "/success" element = {<Success  />} />
 
 

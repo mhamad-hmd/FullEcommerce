@@ -32,7 +32,7 @@ const LogIn = () => {
           <button className='createBtn my-5 ' onClick={handleClick} >LOG IN</button>
           {!loginStatus && <span className='text-red-700 font-medium text-md'>Something went wrong...</span>}
           <a href="" className='my-1 text-sm underline'>FORGOT PASSWORD?</a>
-          <a href="" className='my-1 text-sm underline'>CREATE AN ACCOUNT</a>
+          <a href="https://eshop-webproject.herokuapp.com/register" className='my-1 text-sm underline'>CREATE AN ACCOUNT</a>
         </form>
 
       </div>
