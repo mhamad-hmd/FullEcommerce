@@ -102,7 +102,7 @@ const ProductPage = () => {
                             {product.color?.map((item: string) => (
 
                                 <div id='filterColorContainer' className='filterColorContainer'>
-                                    <input  style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item}  onClick={() => optionHandeler(item)}></input>
+                                    <option  style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item}  onClick={() => optionHandeler(item)}></option>
                                 </div>
                             ))}
 
