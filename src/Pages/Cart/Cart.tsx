@@ -27,7 +27,7 @@ const Cart = () => {
 
   }
 
-  
+
 
   const cart = useStore((state: any) => state.cart)
   const setCart = useStore((state: any) => state.setCart)
@@ -90,30 +90,31 @@ const Cart = () => {
 
   const confirmChange = (productPrice: number, product: any, index: number) => {
     document.getElementById(`confirmBtn${index}`)!.style.display = "none"
-   setCartTotalPrice()
+    setCartTotalPrice()
 
     setQuantity(1)
   }
 
-  const filterProducts = (index:number) => {
-    const rmvProduct = cart.cartProducts.filter((item:any, i:number) => i !== index )
-     removeProduct(rmvProduct) 
-     setCartTotalPrice()
-     setCartQuantity()
+  const filterProducts = (index: number) => {
+    const rmvProduct = cart.cartProducts.filter((item: any, i: number) => i !== index)
+    removeProduct(rmvProduct)
+    setCartTotalPrice()
+    setCartQuantity()
   }
 
   return (
     <div className='cartContainer'>
-      <Navbar />
       <Announcement />
+      <Navbar />
+
       <div className="cartWrapper / md:p-5 xs:p-2 ">
-        <h1 className='font-light text-center text-4xl'>YOUR CART </h1>
-        <div className="top / flex items-center justify-between">
+        <h1 className='font-light text-center text-4xl my-1'>YOUR CART </h1>
+        <div className="top / flex items-center justify-between p-2">
 
           <Link to={"/"}>
             <button className="topBtn p-2 font-semibold border-2 border-black ">CONTINUE SHOPPING</button>
           </Link>
-          <div className="topText / md:block  xs:hidden p-5">
+          <div className="topText / md:block   xs:hidden md:p-5 ">
             <span className='underline mx-5 '>Shopping Bag({cart.cartQuantity})</span>
             <span className='underline mx-5'>Your Wishlist(0)</span>
           </div>
@@ -152,11 +153,11 @@ const Cart = () => {
 
                   <button id={`confirmBtn${index}`} className={`border bg-teal-700 font-light tracking-wide p-1 text-white hidden `} onClick={() => confirmChange(product.quantity * product.price, product, index)}>Confirm</button>
                   <span className="productPrice text-2xl font-light md:mb-0 xs:mb-5">${product.price * product.quantity}</span>
-                <span className='cursor-pointer' onClick={() => filterProducts(index)}>Remove</span>
-                
+                  <span className='cursor-pointer' onClick={() => filterProducts(index)}>Remove</span>
+
                 </div>
-                
-              </div> ) )}
+
+              </div>))}
 
           </div>
 
@@ -176,7 +177,7 @@ const Cart = () => {
             </div>
             <div className="summaryItem font-medium text-2xl">
               <span className="summaryItemText ">Total</span>
-              <span className="summaryItemPrice"> {cart.totalPrice -6 + 30 }  $</span>
+              <span className="summaryItemPrice"> {cart.totalPrice - 6 + 30}  $</span>
             </div>
             <div>
               <StripeCheckout
@@ -184,7 +185,7 @@ const Cart = () => {
                 token={onToken}
                 billingAddress
                 shippingAddress
-                description={`Your total is ${cart.totalPrice -6 + 30}$`}
+                description={`Your total is ${cart.totalPrice - 6 + 30}$`}
                 amount={2000}
                 stripeKey={key}
               />

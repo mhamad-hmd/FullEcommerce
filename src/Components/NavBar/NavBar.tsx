@@ -106,13 +106,13 @@ const Navbar = () => {
 
               <div id='' className='accountOptions / grid  justify-center m-auto gap-x-2  /py-1   '>
 
-                <Link className='accOption bg-slate-50/50  ' to={`/register`}>
+                <Link className='accOption bg-gray-900/60 ' to={`/register`}>
 
-                  <h1 className='font-normal tracking-wide text-md p-1 '>Register</h1>
+                  <h1 className='font-normal tracking-wide text-white text-md p-1 '>Register</h1>
                 </Link>
 
-                <Link className='accOption bg-slate-50/50' to={`/login`}>
-                  <h1 className='font-normal tracking-wide text-md p-1'>Signin</h1>
+                <Link className='accOption bg-gray-900/60' to={`/login`}>
+                  <h1 className='font-normal tracking-wide text-white text-md p-1'>Signin</h1>
                 </Link>
               </div>
             </div>
