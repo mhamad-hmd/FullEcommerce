@@ -16,7 +16,6 @@ import {
 } from "react-router-dom";
 import Success from './Pages/Success'
 import { useStore, useUserStore } from './store'
-import SearchedProducts from './Pages/searchedProducts/SearchedProducts'
 
 
 function App() {
