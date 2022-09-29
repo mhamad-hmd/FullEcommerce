@@ -20,7 +20,7 @@ import { useStore, useUserStore } from './store'
 
 function App() {
 
-  const user =  useUserStore((state:any) => state.currentUser)
+  const user = useUserStore((state:any) => state.currentUser)
 
  
  
