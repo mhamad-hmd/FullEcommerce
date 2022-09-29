@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "vite start"
+    "start": "vite"
   },
   "engines": {
     "node":"16.16.0"
