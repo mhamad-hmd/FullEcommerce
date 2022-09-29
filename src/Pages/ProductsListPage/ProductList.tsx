@@ -102,7 +102,7 @@ return (
 
     </div>
 
-    <PopularProducts filters={filters} sort={sort} />
+    <PopularProducts filters={filters} sort={sort} reset={false} />
     <NewsLetter />
     <Footer />
 
