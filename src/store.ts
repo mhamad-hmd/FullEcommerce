@@ -146,7 +146,7 @@ export const useStore = create(
 
 const userStore = (set: any) => ({
 
-    currentUser: Object,
+    currentUser: {},
     setCurrentUser: (value: object) => set(() => ({
         currentUser: value
     })),

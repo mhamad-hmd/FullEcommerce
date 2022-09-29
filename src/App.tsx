@@ -21,8 +21,8 @@ import { useStore, useUserStore } from './store'
 function App() {
 
   const user = useUserStore((state:any) => state.currentUser)
-
- 
+  const isEmpty = Object.keys(user).length !== 0;
+ console.log(isEmpty)
  
   
   return (
@@ -34,8 +34,8 @@ function App() {
       <Route path = "/find/:tag" element = {<ProductList/>} />
       <Route path = "/product/:id" element = {<ProductPage/>} />
       <Route path = "/cart" element = {<Cart/>} />
-      <Route path = "/login" element = {user? <Navigate to="/"/> : <LogIn/>} />
-      <Route path = "/register" element = {user ? <Navigate to="/"/> : <Register/>} />
+      <Route path = "/login" element = {isEmpty ? <Navigate to="/"/> : <LogIn/>} />
+      <Route path = "/register" element = {user? <Navigate to="/"/> : <Register/>} />
       <Route path = "/success" element = {<Success  />} />
 
 
