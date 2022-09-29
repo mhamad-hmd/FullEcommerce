@@ -5,7 +5,7 @@ import Footer from '../Components/Footer/Footer'
 import NavBar from '../Components/NavBar/NavBar'
 import NewsLetter from '../Components/NewsLetter/NewsLetter'
 import Slider from '../Components/Slider/Slider'
-import PopularProducts from '../Components/Popularproducts/PopularProducts'
+import PopularProducts from '../Components/PopularProducts/PopularProducts'
 
 
 const Home = () => {
