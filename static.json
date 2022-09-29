@@ -1,8 +1,4 @@
 {
-    "root": "./dist",
-    "clean_urls": true,
-    "routes": {
-      "git a": "index.html"
-    }
-  }
+    "root": "./dist"
+}
   
