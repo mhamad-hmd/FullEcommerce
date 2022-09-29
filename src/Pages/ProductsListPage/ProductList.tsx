@@ -39,7 +39,7 @@ const ProductList = () => {
     }
 
   }, [location])
-console.log("searchTag " + searchTag + " list " + " category " + category + " list ")
+
 
 
 

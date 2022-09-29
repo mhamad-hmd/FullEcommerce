@@ -98,7 +98,6 @@ const Cart = () => {
   const filterProducts = (index:number) => {
     const rmvProduct = cart.cartProducts.filter((item:any, i:number) => i !== index )
      removeProduct(rmvProduct) 
-     console.log(rmvProduct, index)
      setCartTotalPrice()
      setCartQuantity()
   }
