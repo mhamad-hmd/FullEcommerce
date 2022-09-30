@@ -2,6 +2,7 @@
 import { error } from 'console'
 import { object } from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { login } from '../../apiCalls'
 import { useUserStore } from '../../store'
 import './Form.scss'
@@ -29,10 +30,12 @@ const LogIn = () => {
         <form action="" className='loginForm flex flex-wrap flex-col'>
           <input type="text" placeholder='username' onChange={(e) => setUserName(e.target.value)} />
           <input type='password' placeholder='password'  onChange={(e) => setPassword(e.target.value)} />
-          <button className='createBtn my-5 ' onClick={handleClick} >LOG IN</button>
-          {!loginStatus && <span className='text-red-700 font-medium text-md'>Something went wrong...</span>}
           <a href="" className='my-1 text-sm underline'>FORGOT PASSWORD?</a>
-          <a href="https://eshop-webproject.herokuapp.com/register" className='my-1 text-sm underline'>CREATE AN ACCOUNT</a>
+          <button className='createBtn my-3 ' onClick={handleClick} >LOG IN</button>
+          {!loginStatus && <span className='text-red-700 font-medium text-md'>Something went wrong...</span>}
+          <Link to={"/register"} className='my-1 text-sm underline'>CREATE AN ACCOUNT</Link>
+          <Link to={`/`} className=' underline  text-sm my-1'>GUEST?</Link>
+
         </form>
 
       </div>

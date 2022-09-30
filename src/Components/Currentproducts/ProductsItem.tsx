@@ -14,7 +14,6 @@ const ProductsItem = ({ item }: { item: item }) => {
     return (
         <div className='ProductContainer flex justify-center items-center m-auto m-1'>
 
-            <div className='circle'></div>
 
             <img className='object-cover' src={item.img} alt="" />
 

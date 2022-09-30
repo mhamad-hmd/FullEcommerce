@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useStore } from '../../store'
+import { useStore, useUserStore } from '../../store'
 import './NavBar.scss'
 
 
@@ -15,26 +15,26 @@ const Navbar = () => {
     document.getElementById('accountOptions')?.classList.add('active')
   }
 
-  useEffect(()=>{
-  if (searchBarSwitch % 2 === 0) {
-    document.getElementById('xsSearchBarContainer')?.classList.add('activateSearchBar')
-    document.getElementById('blackPage')?.classList.add('ActivateBlackPage')
-    document.body.style.position = 'fixed';
-  }
-  else {
-    document.getElementById('xsSearchBarContainer')?.classList.remove('activateSearchBar')
-    document.getElementById('blackPage')?.classList.remove('ActivateBlackPage')
-    document.body.style.position = 'static';
-  }
+  useEffect(() => {
+    if (searchBarSwitch % 2 === 0) {
+      document.getElementById('xsSearchBarContainer')?.classList.add('activateSearchBar')
+      document.getElementById('blackPage')?.classList.add('ActivateBlackPage')
+      document.body.style.position = 'fixed';
+    }
+    else {
+      document.getElementById('xsSearchBarContainer')?.classList.remove('activateSearchBar')
+      document.getElementById('blackPage')?.classList.remove('ActivateBlackPage')
+      document.body.style.position = 'static';
+    }
 
   }, [searchBarSwitch])
 
-   
+
 
   return (
     <div className='navContainer relative'>
       <div id='xsSearchBarContainer' className='xsSearchBarContainer / bg-slate-100 px-2 xs:grid md:hidden'>
-  
+
         <form className='flex gap-2' action={`/find/${searchInputs}`}>
           <button>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
@@ -42,8 +42,8 @@ const Navbar = () => {
             </svg>
           </button>
           <input type="text" className='xsSearchBar  outline-0' placeholder='Search' onChange={(e) => setSearchInputs(e.target.value)} />
-       </form>
-        
+        </form>
+
 
       </div>
 
@@ -113,6 +113,10 @@ const Navbar = () => {
 
                 <Link className='accOption bg-gray-900/60' to={`/login`}>
                   <h1 className='font-normal tracking-wide text-white text-md p-1'>Signin</h1>
+                </Link>
+
+                <Link className='accOption bg-gray-900/60' to={`/login`}>
+                  <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={() => useUserStore.setState({ currentUser: {} })}>SignOut</h1>
                 </Link>
               </div>
             </div>
