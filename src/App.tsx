@@ -16,31 +16,37 @@ import {
 } from "react-router-dom";
 import Success from './Pages/Success'
 import { useStore, useUserStore } from './store'
+import Announcement from './Components/Announcement/Announcement'
+import Navbar from './Components/NavBar/NavBar'
 
 
 function App() {
 
-  const user = useUserStore((state:any) => state.currentUser)
+  const user = useUserStore((state: any) => state.currentUser)
   const isEmpty = Object.keys(user).length !== 0;
- console.log(isEmpty)
- 
-  
+  console.log(isEmpty)
+
   return (
+    <div>
+      <Router>
     
-   <Router>
-    <Routes>
-      <Route path = "/" element = {<Home/>} />
-      <Route path = "/products/:category" element = {<ProductList/>} />
-      <Route path = "/find/:tag" element = {<ProductList/>} />
-      <Route path = "/product/:id" element = {<ProductPage/>} />
-      <Route path = "/cart" element = {<Cart/>} />
-      <Route path = "/login" element = {isEmpty ? <Navigate to="/"/> : <LogIn/>} />
-      <Route path = "/register" element = {isEmpty ?  <Navigate to="/"/> : <Register/>} />
-      <Route path = "/success" element = {<Success  />} />
+        <Announcement />
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products/:category" element={<ProductList />} />
+          <Route path="/find/:tag" element={<ProductList />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={isEmpty ? <Navigate to="/" /> : <LogIn />} />
+          <Route path="/register" element={isEmpty ? <Navigate to="/" /> : <Register />} />
+          <Route path="/success" element={<Success />} />
 
 
-    </Routes>
-   </Router>
+        </Routes>
+      </Router>
+    </div>
   )
 }
 

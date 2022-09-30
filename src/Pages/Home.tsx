@@ -14,8 +14,6 @@ const Home = () => {
   
   return (
     <div className=''>
-      <Announcement />
-      <NavBar />
       <Slider />
       <Categories />
       <PopularProducts/>

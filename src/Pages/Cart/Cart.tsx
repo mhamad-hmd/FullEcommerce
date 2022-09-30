@@ -104,8 +104,6 @@ const Cart = () => {
 
   return (
     <div className='cartContainer'>
-      <Announcement />
-      <Navbar />
 
       <div className="cartWrapper / md:p-5 xs:p-2 ">
         <h1 className='font-light text-center text-4xl my-1'>YOUR CART </h1>

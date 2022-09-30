@@ -63,8 +63,6 @@ const handleFitlers = (e: any) => {
 return (
   <div className='productListContainer'>
 
-    <Navbar />
-    <Announcement />
 
     <h1 className='text-4xl font-bold m-5 '>{location.pathname.split("/")[2]}</h1>
 

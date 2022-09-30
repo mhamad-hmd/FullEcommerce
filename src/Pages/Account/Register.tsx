@@ -13,9 +13,9 @@ const Register = () => {
           <input type="text" placeholder='name' />
           <input type="text" placeholder='last name' />
           <input type="text" placeholder='username' />
-          <input type="text" placeholder='email' />
-          <input type="text" placeholder='password' />
-          <input type="text" placeholder='confirm password' />
+          <input type="email" placeholder='email' />
+          <input type="password" placeholder='password' />
+          <input type="password" placeholder='confirm password' />
           <span className='text-sm mt-5'>
             By creating an account, you agree to the <b>PRIVACY POLICY</b>
           </span>
