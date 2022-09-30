@@ -6,6 +6,8 @@ import './NavBar.scss'
 
 const Navbar = () => {
 
+  const user = useUserStore((state: any) => state.currentUser)
+  const signedIn = Object.keys(user).length === 0;
   const [searchBarSwitch, setSearchBarSwitch] = useState(1)
   const setSearchInputs = useStore((state: any) => state.setSearchInputs)
   const cart = useStore((state: any) => state.cart)
@@ -105,19 +107,17 @@ const Navbar = () => {
               </svg>
 
               <div id='' className='accountOptions / grid  justify-center m-auto gap-x-2  /py-1   '>
-
-                <Link className='accOption bg-gray-900/60 ' to={`/register`}>
-
-                  <h1 className='font-normal tracking-wide text-white text-md p-1 '>Register</h1>
-                </Link>
-
-                <Link className='accOption bg-gray-900/60' to={`/login`}>
-                  <h1 className='font-normal tracking-wide text-white text-md p-1'>Signin</h1>
-                </Link>
-
-                <Link className='accOption bg-gray-900/60' to={`/login`}>
-                  <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={() => useUserStore.setState({ currentUser: {} })}>SignOut</h1>
-                </Link>
+                {signedIn ? 
+                <><Link className='accOption bg-gray-900/60 ' to={`/register`}>
+                    <h1 className='font-normal tracking-wide text-white text-md p-1 '>Register</h1>
+                  </Link><Link className='accOption bg-gray-900/60' to={`/login`}>
+                      <h1 className='font-normal tracking-wide text-white text-md p-1'>Signin</h1>
+                    </Link></>
+                  :
+                  <Link className='accOption bg-gray-900/60' to={`/login`}>
+                    <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={() => useUserStore.setState({ currentUser: {} })}>SignOut</h1>
+                  </Link>
+                }
               </div>
             </div>
           </div>
