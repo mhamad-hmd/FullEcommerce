@@ -1,45 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import './announcement.scss'
 
 function Announcement() {
 
   const announcementsArray = ["SUPER DEAL! FREE SHIPPING ON ORDERS OVER 50$", "END OF SUMMER! 60% OFF EVERYRTHING", "GET 20% OFF OF EVERYTHING "]
+  const annWrapper = document.getElementById('annWrapper')
 
-
-const [counter, setCounter] = useState(-1)
-  const announcementSlider = () => {
-
-    
-
-    if (counter > 0) {
-      setCounter(-1)
-    }
-    else{
-      setCounter(counter + 1)
-    }
-
-  }
-
-  const transform = {
-    transform: `translateX(${counter * -100}vw)`,
-
-  }
+  const [counter, setCounter] = useState(1)
+  const ref = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    const intervalId = setInterval(announcementSlider, 3000)
+    const annWrapperRef = ref.current
+
+
+    const intervalId = setInterval(() => {
+      annWrapperRef!.style.transform = 'translate(-33.3%)'
+
+    }, 2000)
+    
+
+  annWrapperRef?.addEventListener('transitionend', () => {
+
+   annWrapperRef!.appendChild(annWrapperRef.firstElementChild!)
+
+      annWrapperRef!.style.transition = 'none'
+      annWrapperRef!.style.transform = 'translate(0)'
+
+    setTimeout(() => {
+      annWrapperRef!.style.transition = '2s ease'
+   
+    },)
+  })
+
     return () => clearInterval(intervalId);
-  },[counter])
+
+
+  }, [])
+
+
+
+
+
 
 
   return (
-    <div className="announcementContainer w-screen / flex justify-center bg-indigo-600 relative" >
-      <div className="announcementWrapper flex relative    " style={transform}>
-        {announcementsArray.map((ann: string, i: number) => (
-          <div className=" text-center w-screen text-white ">
-            <h1>{ann}</h1>
-          </div>
-        ))
-        }
+    <div className="Container / bg-indigo-600 ">
+      <div className="anntContainer / "  >
+        <div id="annWrapper" ref={ref} className="annWrapper mx-10" >
+          {announcementsArray.map((ann: string, i: number) => (
+            <div className="annItem text-white ">
+              {ann}
+            </div>
+          ))
+          }
+        </div>
       </div>
     </div>
   )
