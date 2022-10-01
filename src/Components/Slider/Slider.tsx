@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './slider.scss'
-import suit from '../../Assets/suit.png'
+
 import { sliderItems } from '../../data'
-import { keys } from '@mui/system'
+
 
 
 const Slider = () => {
@@ -27,6 +27,7 @@ const Slider = () => {
         transform: `translateX(${slideIndex * -100}vw)`,
         
     }
+    
 
     return (
         <div id='sliderContainer' className='h-screen w-full flex  md:flex xs:hidden '>

@@ -79,8 +79,6 @@ const ProductPage = () => {
     return (
         <div className='ProductPageContainer'>
 
-            <Navbar />
-            <Announcement />
 
             <div className="productWrapper / md:p-10 xs:p-2 / flex md:flex-row xs:flex-col /">
 

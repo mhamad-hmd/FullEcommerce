@@ -1,4 +1,4 @@
-  import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import './announcement.scss'
 
 function Announcement() {
@@ -14,23 +14,23 @@ function Announcement() {
 
 
     const intervalId = setInterval(() => {
-      annWrapperRef!.style.transform = 'translate(-33.3%)'
+      annWrapperRef!.style.transform = 'translatex(-33.3%)'
 
     }, 2000)
-    
 
-  annWrapperRef?.addEventListener('transitionend', () => {
 
-   annWrapperRef!.appendChild(annWrapperRef.firstElementChild!)
+    annWrapperRef?.addEventListener('transitionend', () => {
+
+      annWrapperRef!.appendChild(annWrapperRef.firstElementChild!)
 
       annWrapperRef!.style.transition = 'none'
       annWrapperRef!.style.transform = 'translate(0)'
 
-    setTimeout(() => {
-      annWrapperRef!.style.transition = '2s ease'
-   
-    },)
-  })
+      setTimeout(() => {
+        annWrapperRef!.style.transition = 'all 2s ease'
+
+      },)
+    })
 
     return () => clearInterval(intervalId);
 
