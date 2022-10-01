@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+  import { useEffect, useState, useRef } from "react";
 import './announcement.scss'
 
 function Announcement() {
@@ -46,7 +46,7 @@ function Announcement() {
   return (
     <div className="Container / bg-indigo-600 ">
       <div className="anntContainer / "  >
-        <div id="annWrapper" ref={ref} className="annWrapper mx-10" >
+        <div id="annWrapper" ref={ref} className="annWrapper" >
           {announcementsArray.map((ann: string, i: number) => (
             <div className="annItem text-white ">
               {ann}
