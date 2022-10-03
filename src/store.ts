@@ -154,11 +154,13 @@ const userStore = (set: any) => ({
     logging: {
         logginStart: new Boolean,
         loginSuccess: new Boolean,
+        register: new Boolean,
     },
-    setLogging: (logginStart: Boolean, loginSuccess: Boolean) => set((_state: any) => ({
+    setLogging: (logginStart: Boolean, loginSuccess: Boolean, register:Boolean) => set((_state: any) => ({
         logging: {
             logginStart,
             loginSuccess,
+            register,
         }
     })),
 

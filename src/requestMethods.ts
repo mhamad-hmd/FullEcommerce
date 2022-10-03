@@ -1,11 +1,12 @@
 
 import axios from "axios";
+import { useUserStore } from "./store";
 
 const BASE_URL = "https://full-ecommerce-api.herokuapp.com/api"; 
 
-const user = JSON.parse(localStorage.getItem("persist:root") || '{}')?.user;
-const currentUser = user && JSON.parse(user).currentUser;
-const TOKEN  =  currentUser?.accessToken
+const TOKEN = useUserStore.getState().currentUser.accessToken;
+console.log(TOKEN)
+
 
 export const publicRequest = axios.create({
     baseURL: BASE_URL,
