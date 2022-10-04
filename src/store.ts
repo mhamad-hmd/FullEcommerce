@@ -163,6 +163,12 @@ const userStore = (set: any) => ({
             register,
         }
     })),
+    likedProducts: [],
+    setlikedProducts: (product:Object) => set((state:any) => (
+        {
+            likedProducts:[...state.likedProducts, product ]
+        }
+    ))
 
 
 
@@ -175,7 +181,8 @@ export const useUserStore = create(
         persist(userStore, {
             name: 'userLogin',
             partialize: (state) => ({
-                currentUser: state.currentUser
+                currentUser: state.currentUser,
+                likedProducts:state.likedProducts
             })
         })
     )

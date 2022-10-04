@@ -4,17 +4,25 @@ import { Link, Navigate, NavLink } from 'react-router-dom'
 import { userRequest } from '../../requestMethods'
 import { useUserStore } from '../../store'
 import './productsItem.scss'
+import _ from 'lodash';
 
 
 type item = {
     _id: string,
     img: string,
+    title:string
 }
 
 const ProductsItem = ({ item }: { item: item }) => {
 
 const currentUser = useUserStore((state:any) => state.currentUser)
-const [add , setAdd] = useState(false)
+const setCurrentUser = useUserStore((state:any) => state.setCurrentUser)
+
+const likedProducts = useUserStore((state:any) => state.likedProducts)
+const setlikedProducts = useUserStore((state:any) => state.setlikedProducts)
+const [liked, setLiked] = useState(false);
+
+
 
 useEffect(() => {
 
@@ -23,18 +31,28 @@ useEffect(() => {
          try {
              const res = await userRequest.put("/users/"+currentUser._id,
              {
-                favProducts: item
+                favProducts: likedProducts
              });
-             
+             setCurrentUser(res.data)
          } catch (err) { console.log(err)}
      
      }
-     add && addToFavorite()
+      addToFavorite()
 
-})
+}, [likedProducts])
 
-     
-   
+useEffect(() => {
+    setLiked(currentUser.favProducts.some((product:item) => {
+         _.isEqual(product.title,item.title)
+
+    }))
+},[])
+
+    const handleLiked = () => {
+        liked === false && setlikedProducts(item)
+    }
+
+  console.log(liked + "1")
 
     return (
         <div className='ProductContainer flex justify-center items-center m-auto m-1'>
@@ -53,7 +71,7 @@ useEffect(() => {
                 </div>
 
                 <div className='icon'>
-                    <svg onClick={() => setAdd(true)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <svg onClick={handleLiked} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 ${liked && "bg-red-400"}`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                     </svg>
                 </div>
