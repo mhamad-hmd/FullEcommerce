@@ -43,16 +43,21 @@ useEffect(() => {
 
 useEffect(() => {
     setLiked(currentUser.favProducts.some((product:item) => {
-         _.isEqual(product.title,item.title)
+         if(_.isEqual(product, item._id)) {
+            return true
+         }
+         else{
+            return false
+         }
 
     }))
 },[])
 
     const handleLiked = () => {
-        liked === false && setlikedProducts(item)
+        liked === false && setlikedProducts(item._id)
     }
 
-  console.log(liked + "1")
+  console.log(liked)
 
     return (
         <div className='ProductContainer flex justify-center items-center m-auto m-1'>

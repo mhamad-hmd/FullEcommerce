@@ -48,7 +48,7 @@ function Announcement() {
       <div className="anntContainer / "  >
         <div id="annWrapper" ref={ref} className="annWrapper" >
           {announcementsArray.map((ann: string, i: number) => (
-            <div className="annItem text-white ">
+            <div className="annItem text-white " key={i}>
               {ann}
             </div>
           ))

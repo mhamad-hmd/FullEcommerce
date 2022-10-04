@@ -24,7 +24,6 @@ function App() {
 
   const user = useUserStore((state: any) => state.currentUser)
   const isEmpty = Object.keys(user).length !== 0;
-  console.log(isEmpty)
 
   return (
     <div>

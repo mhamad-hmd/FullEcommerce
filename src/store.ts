@@ -164,7 +164,7 @@ const userStore = (set: any) => ({
         }
     })),
     likedProducts: [],
-    setlikedProducts: (product:Object) => set((state:any) => (
+    setlikedProducts: (product:string) => set((state:any) => (
         {
             likedProducts:[...state.likedProducts, product ]
         }
