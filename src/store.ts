@@ -4,6 +4,10 @@ import create from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 
+type products = {
+    id: string,
+    title: string,
+}
 
 type productQuantity = {
     forEach(arg0: (objectItem: any) => any): unknown;
@@ -28,26 +32,28 @@ export const useStore = create(
                 cartQuantity: state.cart.cartProducts.length
             }
         })),
-        setCartQuantity:() => set((state:any) => (
-            { cart: {
-              ...state.cart,
-              cartQuantity: state.cart.cartProducts.length
-              }
-          } 
-          )),
-        removeProduct:(filteredProducts:Array<object>) => set((state:any) => (
-          { cart: {
-            ...state.cart,
-            cartProducts: filteredProducts
+        setCartQuantity: () => set((state: any) => (
+            {
+                cart: {
+                    ...state.cart,
+                    cartQuantity: state.cart.cartProducts.length
+                }
             }
-        } 
+        )),
+        removeProduct: (filteredProducts: Array<object>) => set((state: any) => (
+            {
+                cart: {
+                    ...state.cart,
+                    cartProducts: filteredProducts
+                }
+            }
         )),
 
         setCartProductsQuantity: (index: number) => set((state: any,) => (
             {
                 cart: {
                     ...state.cart,
-                    cartProducts: state.cart.cartProducts.map((item: productQuantity, i:Number) => (
+                    cartProducts: state.cart.cartProducts.map((item: productQuantity, i: Number) => (
                         i === index ? (item = { ...item, quantity: state.quantity })
                             : item
                     ))
@@ -58,14 +64,14 @@ export const useStore = create(
             {
                 cart: {
                     ...state.cart,
-                    totalPrice:  state.cart.cartProducts.reduce(
+                    totalPrice: state.cart.cartProducts.reduce(
                         (acc: any, item: productQuantity) => (
                             acc + item.price * item.quantity
 
-                        ),0)
-                        // : state.cart.cartProducts.map((item: productQuantity) => (
-                        //     item.price * item.quantity
-                        // ))   
+                        ), 0)
+                    // : state.cart.cartProducts.map((item: productQuantity) => (
+                    //     item.price * item.quantity
+                    // ))   
 
                 }
             }
@@ -106,7 +112,7 @@ export const useStore = create(
             }
 
         )),
-        resetQueries: () => set((state:any) => (
+        resetQueries: () => set((state: any) => (
             {
                 searchTag: '',
                 category: ''
@@ -114,29 +120,45 @@ export const useStore = create(
         )),
 
         products: Array,
-        setProducts: (addProduct:any) => set((state:any) => (
+        setProducts: (addProduct: any) => set((state: any) => (
             {
                 products: addProduct
             }
         )),
-       
+
 
         checkQuery: false,
-        setCheckQuery : () => set ((state:any) => (
-            
+        setCheckQuery: () => set((state: any) => (
+
             {
                 checkQuery: state.searchTag || state.category ? true : false
             }
         )),
-        
+        userLikedProducts: [],
+        setuserLikedProducts:(products:Array<object>, likedId:Array<String>) => set((state:any) => (
+            {
+                userLikedProducts: products.filter((crntProducts:any) => {
+                    return likedId.some((id:any) => {
+                       if (id === crntProducts._id){
+                        return true
+                       }
+                       else{
+                        return false
+                       }
+                    })
+                })
+            }
+            
+        ))
+
     }),
 
-    
+
 
 
         {
             name: 'cart-storage',
-            partialize: (state: any) => ({ cart: state.cart, searchTag:state.searchTag }),
+            partialize: (state: any) => ({ cart: state.cart, searchTag: state.searchTag }),
         }
 
     )
@@ -150,13 +172,31 @@ const userStore = (set: any) => ({
     setCurrentUser: (value: object) => set(() => ({
         currentUser: value
     })),
+    setUserFavProducts: (products: string) => set((state: any) => (
+        {
+            currentUser: {
+                ...state.currentUser,
+                favProducts: [...state.currentUser.favProducts, products]
+            }
+        }
+    )),
+    rmvUserFavProducts: (products: string) => set((state: any) => (
+        {
+            currentUser: {
+                ...state.currentUser,
+                favProducts: state.currentUser.favProducts.filter((id: string) => {
+                    return id !== products
+                })
+            }
+        }
+    )),
 
     logging: {
         logginStart: new Boolean,
         loginSuccess: new Boolean,
         register: new Boolean,
     },
-    setLogging: (logginStart: Boolean, loginSuccess: Boolean, register:Boolean) => set((_state: any) => ({
+    setLogging: (logginStart: Boolean, loginSuccess: Boolean, register: Boolean) => set((_state: any) => ({
         logging: {
             logginStart,
             loginSuccess,
@@ -164,9 +204,9 @@ const userStore = (set: any) => ({
         }
     })),
     likedProducts: [],
-    setlikedProducts: (product:string) => set((state:any) => (
+    setlikedProducts: (product: string) => set((state: any) => (
         {
-            likedProducts:[...state.likedProducts, product ]
+            likedProducts: [...state.currentUser.favProducts, product]
         }
     ))
 
@@ -182,7 +222,7 @@ export const useUserStore = create(
             name: 'userLogin',
             partialize: (state) => ({
                 currentUser: state.currentUser,
-                likedProducts:state.likedProducts
+                likedProducts: state.likedProducts
             })
         })
     )
@@ -190,7 +230,7 @@ export const useUserStore = create(
 
 
 if (process.env.NODE_ENV === 'development') {
-    mountStoreDevtool('Userstore', useUserStore);   
+    mountStoreDevtool('Userstore', useUserStore);
     mountStoreDevtool('Store', useStore);
 
 

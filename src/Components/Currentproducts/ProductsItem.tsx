@@ -17,6 +17,8 @@ const ProductsItem = ({ item }: { item: item }) => {
 
 const currentUser = useUserStore((state:any) => state.currentUser)
 const setCurrentUser = useUserStore((state:any) => state.setCurrentUser)
+const setUserFavProducts = useUserStore((state:any) => state.setUserFavProducts)
+const rmvUserFavProducts = useUserStore((state:any) => state.rmvUserFavProducts)
 
 const likedProducts = useUserStore((state:any) => state.likedProducts)
 const setlikedProducts = useUserStore((state:any) => state.setlikedProducts)
@@ -31,15 +33,14 @@ useEffect(() => {
          try {
              const res = await userRequest.put("/users/"+currentUser._id,
              {
-                favProducts: likedProducts
+                favProducts: currentUser.favProducts
              });
-             setCurrentUser(res.data)
          } catch (err) { console.log(err)}
      
      }
       addToFavorite()
 
-}, [likedProducts])
+}, [currentUser.favProducts])
 
 useEffect(() => {
     setLiked(currentUser.favProducts.some((product:item) => {
@@ -51,17 +52,24 @@ useEffect(() => {
          }
 
     }))
-},[])
+},[currentUser.favProducs])
 
     const handleLiked = () => {
-        liked === false && setlikedProducts(item._id)
+        if(liked === false)
+        {
+            setLiked(true)
+            setUserFavProducts(item._id)
+        }
+        else if(liked === true){
+            setLiked(false)
+            rmvUserFavProducts(item._id)
+        }
     }
 
   console.log(liked)
 
     return (
         <div className='ProductContainer flex justify-center items-center m-auto m-1'>
-
 
             <img className='object-cover' src={item.img} alt="" />
 
@@ -75,8 +83,8 @@ useEffect(() => {
                     </a>
                 </div>
 
-                <div className='icon'>
-                    <svg onClick={handleLiked} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 ${liked && "bg-red-400"}`}>
+                <div className={`icon ${liked && "bg-red-400"}`}>
+                    <svg onClick={handleLiked} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 `}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                     </svg>
                 </div>

@@ -1,16 +1,14 @@
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './cart.scss'
-import Announcement from '../../Components/Announcement/Announcement'
 import Footer from '../../Components/Footer/Footer'
-import Navbar from '../../Components/NavBar/NavBar'
-import suit from './../../Assets/suit.png'
-import { useStore } from '../../store'
+import { useStore, useUserStore } from '../../store'
 import { userRequest } from '../../requestMethods'
 import { Link, useNavigate } from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout'
-import { object } from 'prop-types'
+import axios from 'axios'
 import ProductsItem from '../../Components/Currentproducts/ProductsItem'
+
 
 
 const Cart = () => {
@@ -23,15 +21,12 @@ const Cart = () => {
     color: string,
     price: number,
     _id: string,
-    quantity: number
-
+    quantity: number,
   }
 
 
 
   const cart = useStore((state: any) => state.cart)
-  const setCart = useStore((state: any) => state.setCart)
-  const [totlaPrice, setTotalPrice] = useState(Number)
   const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
 
   const setCartQuantity = useStore((state: any) => state.setCartQuantity)
@@ -41,19 +36,23 @@ const Cart = () => {
   const subtractQuantity = useStore((state: any) => state.subtractQuantity)
   const setQuantity = useStore((state: any) => state.setQuantity)
   const removeProduct = useStore((state: any) => state.removeProduct)
-
   const quantity = useStore((state: any) => state.quantity)
-
   const setCartProductsQuantity = useStore((state: any) => state.setCartProductsQuantity)
   const setCartTotalPrice = useStore((state: any) => state.setCartTotalPrice)
+  const setuserLikedProducts = useStore((state: any) => state.setuserLikedProducts)
+  const userLikedProducts = useStore((state: any) => state.userLikedProducts)
+  const currentUser = useUserStore((state: any) => state.currentUser)
+
 
 
   const onToken = (token: any) => {
     setStripeToken(token)
   }
-  type productQuan = {
-    quantity: Number,
 
+  type item = {
+    _id: String,
+    img: String,
+    title: String
   }
 
 
@@ -70,6 +69,25 @@ const Cart = () => {
     setCartProductsQuantity(index)
 
   }
+
+  useEffect(() => {
+    const getProducts = async () => {
+
+
+
+      try {
+        const res = await axios.get((
+          `https://full-ecommerce-api.herokuapp.com/api/products`
+        ))
+        setuserLikedProducts(res.data, currentUser.favProducts)
+
+      } catch (err) { console.log(err) }
+    }
+
+    getProducts()
+  }, [])
+
+  console.log(userLikedProducts + ' 11')
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -190,8 +208,21 @@ const Cart = () => {
             </div>
           </div>
         </div>
+        <div className='favContainer'>
+          <h1 className='text-4xl text-center font-light  '>Favorite Products</h1>
+          <div className='favWrapper grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
+            {userLikedProducts.map((item: any) => (
+              <ProductsItem item={item} key={item._id} />
+            ))
+
+            }
+          </div>
+        </div>
 
       </div>
+
+
+
 
       <Footer />
     </div>
