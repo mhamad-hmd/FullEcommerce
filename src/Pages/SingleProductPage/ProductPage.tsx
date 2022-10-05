@@ -6,9 +6,21 @@ import Footer from '../../Components/Footer/Footer'
 import Navbar from '../../Components/NavBar/NavBar'
 import NewsLetter from '../../Components/NewsLetter/NewsLetter'
 import { useLocation } from 'react-router-dom'
-import { publicRequest } from '../../requestMethods'
-import { useStore } from '../../store'
+import { publicRequest, userRequest } from '../../requestMethods'
+import { useStore, useUserStore } from '../../store'
 import { object, string } from 'prop-types'
+import axios from 'axios'
+
+
+type Product = {
+    length: number
+    color: Array<string>,
+    title: String,
+    desc: String,
+    img: string,
+    price: number,
+    size: Array<string>,
+}
 
 
 const ProductPage = () => {
@@ -16,24 +28,10 @@ const ProductPage = () => {
     const addQuantity = useStore((state: any) => state.addQuantity)
     const quantity = useStore((state: any) => state.quantity)
     const subtractQuantity = useStore((state: any) => state.subtractQuantity)
-
     const setCart = useStore((state: any) => state.setCart)
     const cart = useStore((state: any) => state.cart)
-
-
-
-    type Product = {
-        length: number
-        color: Array<string>,
-        title: String,
-        desc: String,
-        img: string,
-        price: number,
-        size: Array<string>,
-    }
-
+    const currentUser = useUserStore((state: any) => state.currentUser) 
     const location = useLocation();
-
     //  fetching id from the current url location
     const id = location.pathname.split("/")[2];
     const [product, setProduct] = useState<Product>(Object);
@@ -65,6 +63,8 @@ const ProductPage = () => {
         }
 
     }
+
+  
 
     const addToCart = ( ) => {
         setCart(cartQuantity[0], product.price * quantity, { ...product, size, color, quantity })

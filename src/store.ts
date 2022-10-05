@@ -21,10 +21,9 @@ export const useStore = create(
 
         cart: {
             cartQuantity: 0,
-            totalPrice: 0,
             cartProducts: [],
         },
-        setCart: (cartQuantity: number, price: number, products: Array<object>) => set((state: any) => ({
+        setCart: (cartQuantity: number, price: number, products: String) => set((state: any) => ({
             cart: {
                 ...state.cart,
                 totalPrice: state.cart.totalPrice += price,

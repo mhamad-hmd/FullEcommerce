@@ -87,7 +87,34 @@ const Cart = () => {
     getProducts()
   }, [])
 
-  console.log(userLikedProducts + ' 11')
+
+  useEffect(() => {
+    const getProducts = async () => {
+
+
+
+      try {
+        const res = await userRequest.put("/",
+        {
+          userId : currentUser._id,
+          products : [{
+              productId : cart.products,
+              quantity : 2  ,
+              color: ""
+          }]
+      }
+        )
+        setuserLikedProducts(res.data, currentUser.favProducts)
+
+      } catch (err) { console.log(err) }
+    }
+
+    getProducts()
+  }, [])
+
+
+
+
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -208,14 +235,14 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <div className='favContainer'>
-          <h1 className='text-4xl text-center font-light  '>Favorite Products</h1>
-          <div className='favWrapper grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
-            {userLikedProducts.map((item: any) => (
-              <ProductsItem item={item} key={item._id} />
-            ))
+        <div className='favContainer max-w-7xl m-auto my-10'>
+          <h1 className='text-5xl text-center font-light  '>Favorite Products</h1>
+            <div className='favWrapper   p-5 / grid justify-center items-center   flex-wrap / md:gap-y-3 xs:gap-3'>
+              {userLikedProducts.map((item: any) => (
+                <ProductsItem item={item} key={item._id} />
+              ))
 
-            }
+              }
           </div>
         </div>
 
