@@ -13,7 +13,7 @@ type item = {
     title:string
 }
 
-const ProductsItem = ({ item }: { item: item }) => {
+const   ProductsItem = ({ item }: { item: item }) => {
 
 const currentUser = useUserStore((state:any) => state.currentUser)
 const setCurrentUser = useUserStore((state:any) => state.setCurrentUser)
@@ -42,8 +42,10 @@ useEffect(() => {
 
 }, [currentUser.favProducts])
 
+
+
 useEffect(() => {
-    setLiked(currentUser.favProducts.some((product:item) => {
+    setLiked(currentUser.favProducts.length > 0 && currentUser.favProducts.some((product:item) => {
          if(_.isEqual(product, item._id)) {
             return true
          }

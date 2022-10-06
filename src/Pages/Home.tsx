@@ -16,12 +16,6 @@ const Home = () => {
 
 
   
-
-
- 
-
-
-  
   return (
     <div className=''>
       <Slider />

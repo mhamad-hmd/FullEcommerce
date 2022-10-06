@@ -46,7 +46,7 @@ function App() {
      isEmpty && getCart()
     },[isEmpty])
 
-    
+
     useEffect(() => {
       const putCart = async () => {
           try {
