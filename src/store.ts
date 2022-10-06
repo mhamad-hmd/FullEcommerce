@@ -9,6 +9,10 @@ type products = {
     title: string,
 }
 
+type currentUser = {
+    accesstoken:String
+}
+
 type productQuantity = {
     forEach(arg0: (objectItem: any) => any): unknown;
     title: string,
@@ -178,7 +182,7 @@ export const useStore = create(
 
 const userStore = (set: any) => ({
 
-    currentUser: {},
+    currentUser:{} ,
     setCurrentUser: (value: object) => set(() => ({
         currentUser: value
     })),
