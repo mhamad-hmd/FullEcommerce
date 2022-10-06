@@ -28,7 +28,7 @@ const Cart = () => {
 
   const cart = useStore((state: any) => state.cart)
   const key = "pk_test_51LiXEUCi2H6UWiwRM9OnQLR5tU9BWmomZmVy9p1cJrCRT8WpZ9SqWC5m1yiQhcSMHVhHERODmKVukrDIVbIMSw6C006NTJ7OLb"
-
+  const totalPrice = useStore((state: any) => state.totalPrice)
   const setCartQuantity = useStore((state: any) => state.setCartQuantity)
   const [stripeToken, setStripeToken] = useState(Object);
   const navigate = useNavigate()
@@ -89,27 +89,21 @@ const Cart = () => {
 
 
   useEffect(() => {
-    const getProducts = async () => {
-
-
+    const putCart = async () => {
 
       try {
-        const res = await userRequest.put("/",
+        const res = await userRequest.put(`/cart/find/${currentUser._id}`,
         {
           userId : currentUser._id,
-          products : [{
-              productId : cart.products,
-              quantity : 2  ,
-              color: ""
-          }]
-      }
+          products : cart.cartProducts
+        }
         )
         setuserLikedProducts(res.data, currentUser.favProducts)
 
       } catch (err) { console.log(err) }
     }
 
-    getProducts()
+    putCart()
   }, [])
 
 
@@ -208,7 +202,7 @@ const Cart = () => {
             <h1>ORDER SUMMARY</h1>
             <div className="summaryItem">
               <span className="summaryItemText">Subtotal</span>
-              <span className="summaryItemPrice">  {cart.totalPrice}$</span>
+              <span className="summaryItemPrice">  {totalPrice}$</span>
             </div>
             <div className="summaryItem">
               <span className="summaryItemText">Estimated shipping</span>
@@ -220,7 +214,7 @@ const Cart = () => {
             </div>
             <div className="summaryItem font-medium text-2xl">
               <span className="summaryItemText ">Total</span>
-              <span className="summaryItemPrice"> {cart.totalPrice - 6 + 30}  $</span>
+              <span className="summaryItemPrice"> {totalPrice - 6 + 30}  $</span>
             </div>
             <div>
               <StripeCheckout
@@ -228,7 +222,7 @@ const Cart = () => {
                 token={onToken}
                 billingAddress
                 shippingAddress
-                description={`Your total is ${cart.totalPrice - 6 + 30}$`}
+                description={`Your total is ${totalPrice - 6 + 30}$`}
                 amount={2000}
                 stripeKey={key}
               />

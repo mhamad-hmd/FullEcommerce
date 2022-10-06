@@ -18,12 +18,51 @@ import Success from './Pages/Success'
 import { useStore, useUserStore } from './store'
 import Announcement from './Components/Announcement/Announcement'
 import Navbar from './Components/NavBar/NavBar'
+import axios from 'axios'
+import { userRequest } from './requestMethods'
 
 
 function App() {
 
+  
+  const cart = useStore((state: any) => state.cart)
   const user = useUserStore((state: any) => state.currentUser)
   const isEmpty = Object.keys(user).length !== 0;
+  const setAllProducts = useStore((state: any) => state.setAllProducts)
+  const currentUser = useUserStore((state: any) => state.currentUser)
+  const setCart = useStore((state: any) => state.setCart)
+
+
+    useEffect(() => {
+      const getCart = async () => {
+  
+        try {
+          const res = await userRequest.get(`/cart/find/${currentUser._id}`)
+          setCart(res.data.products,res.data._id )
+  
+        } catch (err) { console.log(err) }
+      }
+  
+     isEmpty && getCart()
+    },[isEmpty])
+
+    
+    useEffect(() => {
+      const putCart = async () => {
+          try {
+              const res = await userRequest.put(`/cart/${cart.cartId}`,
+                  {
+                      products: cart.cartProducts
+                  }
+              )
+                  console.log(res)
+          } catch (err) { console.log(err) }
+
+      }
+      putCart()
+  }, [cart.cartProducts])
+
+ 
 
   return (
     <div>

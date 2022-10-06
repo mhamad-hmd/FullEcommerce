@@ -1,15 +1,11 @@
 
 import React, { useEffect, useState } from 'react'
 import './ProductPage.scss'
-import Announcement from '../../Components/Announcement/Announcement'
 import Footer from '../../Components/Footer/Footer'
-import Navbar from '../../Components/NavBar/NavBar'
 import NewsLetter from '../../Components/NewsLetter/NewsLetter'
 import { useLocation } from 'react-router-dom'
 import { publicRequest, userRequest } from '../../requestMethods'
 import { useStore, useUserStore } from '../../store'
-import { object, string } from 'prop-types'
-import axios from 'axios'
 
 
 type Product = {
@@ -20,26 +16,25 @@ type Product = {
     img: string,
     price: number,
     size: Array<string>,
+    _id: String
 }
 
 
 const ProductPage = () => {
-
+    
+    
+    const setCartTotalPrice = useStore((state: any) => state.setCartTotalPrice)
     const addQuantity = useStore((state: any) => state.addQuantity)
     const quantity = useStore((state: any) => state.quantity)
     const subtractQuantity = useStore((state: any) => state.subtractQuantity)
-    const setCart = useStore((state: any) => state.setCart)
+    const setCartProducts = useStore((state: any) => state.setCartProducts)
     const cart = useStore((state: any) => state.cart)
-    const currentUser = useUserStore((state: any) => state.currentUser) 
     const location = useLocation();
     //  fetching id from the current url location
     const id = location.pathname.split("/")[2];
     const [product, setProduct] = useState<Product>(Object);
     const [size, setSize] = useState(String);
     const [color, setColor] = useState(String);
-    const [productindex, setProductIndex] = useState(Number)
-    const cartQuantity = Object.values(cart);
-
 
     useEffect(() => {
         const getProduct = async () => {
@@ -47,11 +42,11 @@ const ProductPage = () => {
                 const res = await publicRequest.get("/products/find/" + id);
                 await setProduct(res.data)
 
-
             } catch (err) { console.log(err) }
         }
 
         getProduct()
+
     }, [id])
 
     const handleClick = (type: string) => {
@@ -64,16 +59,33 @@ const ProductPage = () => {
 
     }
 
-  
 
-    const addToCart = ( ) => {
-        setCart(cartQuantity[0], product.price * quantity, { ...product, size, color, quantity })
+    
+
+
+
+    const addToCart = async () => {
+
+        setCartProducts([...cart.cartProducts, {
+            _id:product._id,
+            img: product.img,
+            productsId: product._id,
+            quantity: quantity,
+            price: product.price,
+            size: size,
+            color: color
+        }])
+        setCartTotalPrice()
+
     }
+
 
     const optionHandeler = (item: any) => {
         setColor(item)
         document.getElementById('filterColorContainer')?.classList.add('filterColorContainerActive')
     }
+
+
 
 
     return (
@@ -100,7 +112,7 @@ const ProductPage = () => {
                             {product.color?.map((item: string) => (
 
                                 <div id='filterColorContainer' className='filterColorContainer'>
-                                    <option  style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item}  onClick={() => optionHandeler(item)}></option>
+                                    <option style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item} onClick={() => optionHandeler(item)}></option>
                                 </div>
                             ))}
 

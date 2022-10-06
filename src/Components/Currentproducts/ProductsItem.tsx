@@ -66,7 +66,6 @@ useEffect(() => {
         }
     }
 
-  console.log(liked)
 
     return (
         <div className='ProductContainer flex justify-center items-center m-auto m-1'>

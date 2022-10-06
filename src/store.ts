@@ -22,15 +22,24 @@ export const useStore = create(
         cart: {
             cartQuantity: 0,
             cartProducts: [],
+            cartId:String
         },
-        setCart: (cartQuantity: number, price: number, products: String) => set((state: any) => ({
+        setCart: (products: any, currentcartId:String) => set((state: any) => ({
             cart: {
                 ...state.cart,
-                totalPrice: state.cart.totalPrice += price,
-                cartProducts: [...state.cart.cartProducts, products],
-                cartQuantity: state.cart.cartProducts.length
+                cartProducts: products,
+                cartQuantity: state.cart.cartProducts.length,
+                cartId: currentcartId
             }
         })),
+        setCartProducts: (products: any) => set((state: any) => ({
+            cart: {
+                ...state.cart,
+                cartProducts: products,
+
+            }
+        })),
+        
         setCartQuantity: () => set((state: any) => (
             {
                 cart: {
@@ -59,20 +68,17 @@ export const useStore = create(
                 }
             }
         )),
-        setCartTotalPrice: (cartPrice: number, productTotalPrice: number) => set((state: any) => (
+        totalPrice:Number,
+        setCartTotalPrice: () => set((state: any) => (
             {
-                cart: {
-                    ...state.cart,
-                    totalPrice: state.cart.cartProducts.reduce(
+               
+                totalPrice: state.cart.cartProducts.reduce(
                         (acc: any, item: productQuantity) => (
                             acc + item.price * item.quantity
 
-                        ), 0)
-                    // : state.cart.cartProducts.map((item: productQuantity) => (
-                    //     item.price * item.quantity
-                    // ))   
+                        ), 0)  
 
-                }
+            
             }
         )),
 
@@ -125,6 +131,11 @@ export const useStore = create(
             }
         )),
 
+        allProducts: Array,
+        setAllProducts: (products: Array<Object>) => set(() => ({
+            allProducts: products
+        })),
+
 
         checkQuery: false,
         setCheckQuery: () => set((state: any) => (
@@ -134,20 +145,20 @@ export const useStore = create(
             }
         )),
         userLikedProducts: [],
-        setuserLikedProducts:(products:Array<object>, likedId:Array<String>) => set((state:any) => (
+        setuserLikedProducts: (products: Array<object>, likedId: Array<String>) => set((state: any) => (
             {
-                userLikedProducts: products.filter((crntProducts:any) => {
-                    return likedId.some((id:any) => {
-                       if (id === crntProducts._id){
-                        return true
-                       }
-                       else{
-                        return false
-                       }
+                userLikedProducts: products.filter((crntProducts: any) => {
+                    return likedId.some((id: any) => {
+                        if (id === crntProducts._id) {
+                            return true
+                        }
+                        else {
+                            return false
+                        }
                     })
                 })
             }
-            
+
         ))
 
     }),
@@ -157,7 +168,7 @@ export const useStore = create(
 
         {
             name: 'cart-storage',
-            partialize: (state: any) => ({ cart: state.cart, searchTag: state.searchTag }),
+            partialize: (state: any) => ({ searchTag: state.searchTag, allProducts: state.allProducts }),
         }
 
     )

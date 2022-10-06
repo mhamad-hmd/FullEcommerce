@@ -6,9 +6,19 @@ import NavBar from '../Components/NavBar/NavBar'
 import NewsLetter from '../Components/NewsLetter/NewsLetter'
 import Slider from '../Components/Slider/Slider'
 import PopularProducts from '../Components/PopularProducts/PopularProducts'
+import { userRequest } from '../requestMethods'
+import { useStore, useUserStore } from '../store'
+import axios from 'axios'
 
 
 const Home = () => {
+  const cart = useStore((state: any) => state.cart)
+
+
+  
+
+
+ 
 
 
   
