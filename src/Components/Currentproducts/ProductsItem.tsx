@@ -45,7 +45,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-    setLiked(currentUser.favProducts > 0 && currentUser.favProducts.some((product:item) => {
+    setLiked(currentUser.favProducts?.length > 0 && currentUser.favProducts.some((product:item) => {
          if(_.isEqual(product, item._id)) {
             return true
          }
