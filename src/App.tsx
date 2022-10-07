@@ -28,7 +28,6 @@ function App() {
   const cart = useStore((state: any) => state.cart)
   const user = useUserStore((state: any) => state.currentUser)
   const isEmpty = Object.keys(user).length !== 0;
-  const setAllProducts = useStore((state: any) => state.setAllProducts)
   const currentUser = useUserStore((state: any) => state.currentUser)
   const setCart = useStore((state: any) => state.setCart)
 
@@ -47,20 +46,7 @@ function App() {
     },[isEmpty])
 
 
-    useEffect(() => {
-      const putCart = async () => {
-          try {
-              const res = await userRequest.put(`/cart/${cart.cartId}`,
-                  {
-                      products: cart.cartProducts
-                  }
-              )
-                  console.log(res)
-          } catch (err) { console.log(err) }
 
-      }
-      putCart()
-  }, [cart.cartProducts])
 
  
 

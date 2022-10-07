@@ -59,7 +59,20 @@ const ProductPage = () => {
 
     }
 
-
+    useEffect(() => {
+        const putCart = async () => {
+            try {
+                const res = await userRequest.put(`/cart/${cart.cartId}`,
+                    {
+                        products: cart.cartProducts
+                    }
+                )
+                    console.log(res)
+            } catch (err) { console.log(err) }
+  
+        }
+        putCart()
+    }, [cart.cartProducts])
     
 
 

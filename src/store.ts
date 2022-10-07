@@ -135,10 +135,7 @@ export const useStore = create(
             }
         )),
 
-        allProducts: Array,
-        setAllProducts: (products: Array<Object>) => set(() => ({
-            allProducts: products
-        })),
+       
 
 
         checkQuery: false,
@@ -172,7 +169,7 @@ export const useStore = create(
 
         {
             name: 'cart-storage',
-            partialize: (state: any) => ({ searchTag: state.searchTag, allProducts: state.allProducts }),
+            partialize: (state: any) => ({ searchTag: state.searchTag }),
         }
 
     )

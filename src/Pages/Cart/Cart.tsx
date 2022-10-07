@@ -88,27 +88,21 @@ const Cart = () => {
   }, [])
 
 
+
   useEffect(() => {
     const putCart = async () => {
+        try {
+            const res = await userRequest.put(`/cart/${cart.cartId}`,
+                {
+                    products: cart.cartProducts
+                }
+            )
+                console.log(res)
+        } catch (err) { console.log(err) }
 
-      try {
-        const res = await userRequest.put(`/cart/find/${currentUser._id}`,
-        {
-          userId : currentUser._id,
-          products : cart.cartProducts
-        }
-        )
-        setuserLikedProducts(res.data, currentUser.favProducts)
-
-      } catch (err) { console.log(err) }
     }
-
     putCart()
-  }, [])
-
-
-
-
+}, [cart.cartProducts])
 
   useEffect(() => {
     const makeRequest = async () => {
