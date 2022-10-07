@@ -1,6 +1,6 @@
 import { useStore, useUserStore } from "./store"
 import React, { useEffect, useState } from 'react'
-import { publicRequest } from "./requestMethods"
+import { publicRequest, userRequest } from "./requestMethods"
 import { subscribeWithSelector } from 'zustand/middleware'
 
 
@@ -63,6 +63,19 @@ export const register = async (user: Object) => {
             register:false
         }
     }) }
+
+try{
+    const res = await userRequest.post("/cart/",{
+        userId: JSON.parse(window.localStorage.getItem('userLogin')!).state.currentUser._id,
+        products: []
+    }
+    )
+    console.log(res.data)
+}
+catch(err){
+    console.log(err)
+}
+
 
 }
 

@@ -16,7 +16,8 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [notMatching,setNotMatching] = useState(false)
   const loginStatus = useUserStore((state: any) => state.logging.register)
-
+  const [status, setState] = useState(false)
+  const user = useUserStore((state: any) => state.currentUser)
 
   const match = () => {
     if (password !== password2){
@@ -29,10 +30,9 @@ const Register = () => {
 
   const handleRegister = (e:any) => {
     e.preventDefault();
-    console.log({name, lastName, email, password, username })
     register({name, lastName, email, password, username })
+    
   }
-
 
 
   return (
@@ -40,7 +40,7 @@ const Register = () => {
 
       <div className="registerWrapper">
         <h1 className='text-2xl font-light tex'>CREATE AN ACCOUNT</h1>
-        <form action="" className='registerForm flex flex-wrap'>
+        <form action="https://eshop-webproject.herokuapp.com/login" className='registerForm flex flex-wrap'>
           <input type="text" placeholder='name' onChange={(e) => setName(e.target.value)} />
           <input type="text" placeholder='last name' onChange={(e) => setLastName(e.target.value)} />
           <input type="text" placeholder='username' onChange={(e) => setUserName(e.target.value)} />
@@ -57,7 +57,7 @@ const Register = () => {
 
             <Link to={`/login`} className=' tracking-wider underline  text-md mt-2 mb-4 w-fit'>SignIn</Link>
             {!loginStatus && <span className='text-red-700 font-medium text-md mb-2'>Something went wrong...</span>}
-            <button className='createBtn w-full' onClick={handleRegister}>CREATE</button>
+            <button  className='createBtn w-full' onClick={handleRegister}>CREATE</button>
           </div>
         </form>
 
