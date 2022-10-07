@@ -32,6 +32,16 @@ const Navbar = () => {
   }, [searchBarSwitch])
 
 
+const handleSignOut = () => {
+useStore.setState({ cart: {
+  cartQuantity: 0,
+  cartProducts: [],
+  cartId:String
+},})
+  useUserStore.setState({ currentUser: {}, likedProducts: [] }) 
+}
+
+
 
   return (
     <div className='navContainer relative'>
@@ -115,7 +125,7 @@ const Navbar = () => {
                     </Link></>
                   :
                     <Link className='accOption bg-gray-900/60 ' to={`/login`}>
-                      <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={() => { useUserStore.setState({ currentUser: {}, likedProducts: [] }) }}>SignOut</h1>
+                      <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={handleSignOut}>SignOut</h1>
                     </Link>
 
                 }

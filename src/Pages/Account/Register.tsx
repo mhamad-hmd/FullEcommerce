@@ -29,6 +29,7 @@ const Register = () => {
 
   const handleRegister = (e:any) => {
     e.preventDefault();
+    console.log({name, lastName, email, password, username })
     register({name, lastName, email, password, username })
   }
 
