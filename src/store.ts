@@ -72,7 +72,7 @@ export const useStore = create(
                 }
             }
         )),
-        totalPrice:Number,
+        totalPrice:0,
         setCartTotalPrice: () => set((state: any) => (
             {
                
