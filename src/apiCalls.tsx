@@ -70,7 +70,6 @@ try{
         products: []
     }
     )
-    console.log(res.data)
 }
 catch(err){
     console.log(err)
