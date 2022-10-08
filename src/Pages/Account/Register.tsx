@@ -16,8 +16,6 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [notMatching,setNotMatching] = useState(false)
   const loginStatus = useUserStore((state: any) => state.logging.register)
-  const [status, setState] = useState(false)
-  const user = useUserStore((state: any) => state.currentUser)
 
   const match = () => {
     if (password !== password2){

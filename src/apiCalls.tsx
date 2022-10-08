@@ -66,7 +66,7 @@ export const register = async (user: Object) => {
 
 try{
     const res = await userRequest.post("/cart/",{
-        userId: JSON.parse(window.localStorage.getItem('userLogin')!).state.currentUser._id,
+        userId: JSON.parse(window.localStorage.getItem('userLogin')!).state.currentUser._id!,
         products: []
     }
     )
