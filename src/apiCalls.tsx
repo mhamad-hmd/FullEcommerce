@@ -10,7 +10,7 @@ export const login = async (user: Object) => {
         useUserStore.setState({
             logging: {
                 logginStart: true,
-                loginSuccess: false,
+                loginSuccess: true,
                 register:false
             }
         })
