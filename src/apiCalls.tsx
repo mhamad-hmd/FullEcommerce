@@ -24,7 +24,7 @@ export const login = async (user: Object) => {
         })
         useUserStore.setState({currentUser:res.data})
 
-
+        
     } catch (err) { useUserStore.setState({
         logging: {
             logginStart: false,

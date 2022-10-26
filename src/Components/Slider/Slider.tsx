@@ -11,7 +11,6 @@ const Slider = () => {
     const slideContainer = document.getElementById('slideContainer');
 
     const [slideIndex, setSlideIndex] = useState(0)
-    
 
     const handleClick = (direction: string) => {
         if(direction === "left"){
@@ -24,7 +23,7 @@ const Slider = () => {
      };
 
      const transform = {
-        transform: `translateX(${slideIndex * -100}vw)`,
+        transform: `translateX(${slideIndex * -100}vw)`
         
     }
     

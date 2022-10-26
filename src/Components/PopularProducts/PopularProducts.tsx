@@ -29,8 +29,8 @@ const PopularProducts = () => {
             {
                 Array.isArray(popProducts) && popProducts
                     .slice(0, 8)
-                    .map((item: any) => (
-                        <ProductsItem item={item} key={item._id} />
+                    .map((item: any, index:number) => (
+                        <ProductsItem index = {index} item={item} key={item._id} />
                     ))
             }
 

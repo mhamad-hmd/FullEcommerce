@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, NavLink } from 'react-router-dom'
 import { userRequest } from '../../requestMethods'
 import { useUserStore } from '../../store'
@@ -10,11 +10,12 @@ import _ from 'lodash';
 type item = {
     _id: string,
     img: string,
-    title:string
+    title:string,
 }
 
-const   ProductsItem = ({ item }: { item: item }) => {
+const ProductsItem = ({ item, index }: { item: item; index:number} ) => {
 
+    
 const currentUser = useUserStore((state:any) => state.currentUser)
 const setCurrentUser = useUserStore((state:any) => state.setCurrentUser)
 const setUserFavProducts = useUserStore((state:any) => state.setUserFavProducts)
@@ -23,8 +24,9 @@ const rmvUserFavProducts = useUserStore((state:any) => state.rmvUserFavProducts)
 const likedProducts = useUserStore((state:any) => state.likedProducts)
 const setlikedProducts = useUserStore((state:any) => state.setlikedProducts)
 const [liked, setLiked] = useState(false);
+const productContainer = useRef(null)
 
-
+const productsInView = useIsInViewport(productContainer);
 
 useEffect(() => {
 
@@ -68,9 +70,13 @@ useEffect(() => {
         }
     }
 
+    const transform = {
+        transform: `translateY(${ productsInView? 0 : 5 * index}%)`
+    }
+
 
     return (
-        <div className='ProductContainer flex justify-center items-center m-auto m-1'>
+        <div ref={productContainer} className='ProductContainer flex justify-center items-center m-auto m-1' style={transform}>
 
             <img className='object-cover' src={item.img} alt="" />
 
@@ -95,5 +101,29 @@ useEffect(() => {
         </div>
     )
 }
+
+function useIsInViewport(ref:any) {
+    const [isIntersecting, setIsIntersecting] = useState(false);
+  
+    const observer = useMemo(
+      () =>
+        new IntersectionObserver(([entry]) =>
+          setIsIntersecting(entry.isIntersecting),
+        ),
+      [],
+    );
+  
+    useEffect(() => {
+      observer.observe(ref.current);
+  
+      return () => {
+        observer.disconnect();
+      };
+    }, [ref, observer]);
+  
+    return isIntersecting;
+  }
+
+
 
 export default ProductsItem
