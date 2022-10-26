@@ -227,7 +227,7 @@ const Cart = () => {
           <h1 className='text-5xl text-center font-light  '>Favorite Products</h1>
             <div className='favWrapper   p-5 / grid justify-center items-center   flex-wrap / md:gap-y-3 xs:gap-3'>
               {userLikedProducts.map((item: any) => (
-                <ProductsItem item={item} key={item._id} />
+                <ProductsItem index={0} item={item} key={item._id} />
               ))
 
               }
