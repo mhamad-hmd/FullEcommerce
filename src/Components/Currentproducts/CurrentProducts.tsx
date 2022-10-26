@@ -99,8 +99,8 @@ const CurrentProducts = ({ filters, sort, reset }: props) => {
 
   return (
     <div className='grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
-      {filteredProducts.map((item: any) => (
-        <ProductsItem item={item} index={10} key={item._id} />
+      {filteredProducts.map((item: any, index:number) => (
+        <ProductsItem item={item} index={index} key={item._id} />
       ))
       }
     </div>
