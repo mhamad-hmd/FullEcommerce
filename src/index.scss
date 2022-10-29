@@ -1,3 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+html {
+  height: 100%;
+}
+body {
+   min-height: 100vh;
+   }
+
 :root {
   margin: 0;
   height: 100%;
@@ -9,12 +22,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+h1{
+  font-size: 16px;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
 
 $mainFont: "Urbanist", sans-serif;
-
-html, body{
-  overflow-x: hidden;
-  }

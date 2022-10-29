@@ -20,6 +20,7 @@ import Announcement from './Components/Announcement/Announcement'
 import Navbar from './Components/NavBar/NavBar'
 import axios from 'axios'
 import { userRequest } from './requestMethods'
+import ProfilePage from './Pages/Account/ProfilePage'
 
 
 function App() {
@@ -51,7 +52,7 @@ function App() {
  
 
   return (
-    <div>
+    <div className="App">
       <Router>
     
         <Announcement />
@@ -66,6 +67,7 @@ function App() {
           <Route path="/login" element={isEmpty ? <Navigate to="/" /> : <LogIn />} />
           <Route path="/register" element={isEmpty ? <Navigate to="/" /> : <Register />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/profile" element={<ProfilePage/>} />
 
 
         </Routes>

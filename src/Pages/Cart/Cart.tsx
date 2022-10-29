@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import ProductsItem from '../../Components/Currentproducts/ProductsItem'
+import FavProducts from '../FavProducts/FavProducts'
 
 
 
@@ -91,18 +92,18 @@ const Cart = () => {
 
   useEffect(() => {
     const putCart = async () => {
-        try {
-            const res = await userRequest.put(`/cart/${cart.cartId}`,
-                {
-                    products: cart.cartProducts
-                }
-            )
-                console.log(res)
-        } catch (err) { console.log(err) }
+      try {
+        const res = await userRequest.put(`/cart/${cart.cartId}`,
+          {
+            products: cart.cartProducts
+          }
+        )
+        console.log(res)
+      } catch (err) { console.log(err) }
 
     }
     putCart()
-}, [cart.cartProducts])
+  }, [cart.cartProducts])
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -223,16 +224,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <div className='favContainer max-w-7xl m-auto my-10'>
-          <h1 className='text-5xl text-center font-light  '>Favorite Products</h1>
-            <div className='favWrapper   p-5 / grid justify-center items-center   flex-wrap / md:gap-y-3 xs:gap-3'>
-              {userLikedProducts.map((item: any) => (
-                <ProductsItem index={0} item={item} key={item._id} />
-              ))
-
-              }
-          </div>
-        </div>
+        <FavProducts/>
 
       </div>
 

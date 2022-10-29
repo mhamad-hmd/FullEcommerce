@@ -4,7 +4,7 @@ import './Footer.scss'
 
 const Footer = () => {
   return (
-    <div className='footerContainer / flex md:flex-row xs:flex-col justify-between'>
+    <div className='footerContainer / flex md:flex-row xs:flex-col justify-between md:bg-white xs:bg-gray-200'>
 
       <div className='left footeritem flex flex-col p-5 '>
 
@@ -73,7 +73,7 @@ const Footer = () => {
       </div>
 
 
-      <div className="right footeritem md:bg-white xs:bg-gray-200">
+      <div className="right footeritem ">
 
         <h3 className='md:text-3xl xs:text-4xl font-bold mb-8 '>Contact</h3>
       

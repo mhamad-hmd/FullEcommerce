@@ -32,14 +32,16 @@ const Navbar = () => {
   }, [searchBarSwitch])
 
 
-const handleSignOut = () => {
-useStore.setState({ cart: {
-  cartQuantity: 0,
-  cartProducts: [],
-  cartId:String
-},})
-  useUserStore.setState({ currentUser: {}, likedProducts: [] }) 
-}
+  const handleSignOut = () => {
+    useStore.setState({
+      cart: {
+        cartQuantity: 0,
+        cartProducts: [],
+        cartId: String
+      },
+    })
+    useUserStore.setState({ currentUser: {}, likedProducts: [] })
+  }
 
 
 
@@ -118,15 +120,22 @@ useStore.setState({ cart: {
 
               <div id='' className='accountOptions / grid  justify-center m-auto gap-x-2  /py-1   '>
                 {signedIn ?
-                  <><Link className='accOption bg-gray-900/60 ' to={`/register`}>
-                    <h1 className='font-normal tracking-wide text-white text-md p-1 '>Register</h1>
-                  </Link><Link className='accOption bg-gray-900/60' to={`/login`}>
+                  <>
+                    <Link className='accOption bg-gray-900/60 ' to={`/register`}>
+                      <h1 className='font-normal tracking-wide text-white text-md p-1 '>Register</h1>
+                    </Link><Link className='accOption bg-gray-900/60' to={`/login`}>
                       <h1 className='font-normal tracking-wide text-white text-md p-1'>Signin</h1>
-                    </Link></>
+                    </Link>
+                  </>
                   :
+                  <>
                     <Link className='accOption bg-gray-900/60 ' to={`/login`}>
                       <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={handleSignOut}>SignOut</h1>
                     </Link>
+                    <Link className='accOption bg-gray-900/60 ' to={`/profile`}>
+                      <h1 className='font-normal tracking-wide text-white text-md p-1' >Profile</h1>
+                    </Link>
+                  </>
 
                 }
               </div>
