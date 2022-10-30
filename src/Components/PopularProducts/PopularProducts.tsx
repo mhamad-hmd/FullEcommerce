@@ -7,8 +7,6 @@ const PopularProducts = () => {
     useEffect(() => {
         const getProducts = async () => {
 
-
-
             try {
                 const res = await axios.get((
                     `https://full-ecommerce-api.herokuapp.com/api/products`
@@ -25,7 +23,7 @@ const PopularProducts = () => {
     }, []);
 
     return (
-        <div className='grid p-5 lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
+        <div className='grid p-5 overflow-hidden lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 justify-between items-center m-auto md:gap-y-3 xs:gap-3 flex-wrap'>
             {
                 Array.isArray(popProducts) && popProducts
                     .slice(0, 8)
