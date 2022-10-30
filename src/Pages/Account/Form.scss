@@ -70,9 +70,8 @@
 .ProfilePage {
     min-height: 100vh;
     min-width: 100%;
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-    
+    background-color: #8ec5fc;
+    background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
 }
 
 .ProfilePageWrapper {
@@ -80,6 +79,7 @@
     height: 100%;
     clip-path: ellipse(82% 58% at 51% 35%);
     color: white;
+    background-size: cover !important;
 }
 
 .profilePicture {
@@ -91,4 +91,42 @@
 
 .userName {
     font-size: 3rem;
+    max-width: 300px;
+}
+.imageInput {
+    max-width: 200px;
+}
+
+.profileInput {
+    border: none;
+}
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+}
+input[type="text"],
+textarea,
+input[type="email"] {
+    background-color: transparent;
+}
+
+.editBtn {
+    top: 11%;
+    right: 25%;
+    @media (min-width: 320px) and (max-width: 640px) {
+        top: 30%;
+        right: 25%;
+    }
+}
+.formBtn {
+    background-color: darkblue !important;
+    padding: 10px;
+    border-radius: 5px;
 }
