@@ -6,6 +6,7 @@ import NewsLetter from '../../Components/NewsLetter/NewsLetter'
 import { useLocation } from 'react-router-dom'
 import { publicRequest, userRequest } from '../../requestMethods'
 import { useStore, useUserStore } from '../../store'
+import UserAlert from '../../Components/UserAlert/UserAlert'
 
 
 type Product = {
@@ -21,8 +22,11 @@ type Product = {
 
 
 const ProductPage = () => {
-    
-    
+
+    const setAlertSwitch = useStore((state) => state.setAlertSwitch)
+    const alertSwitch = useStore((state) => state.alertSwitch)
+    const currentUser = useUserStore((state: any) => state.currentUser)
+    const user = Object.keys(currentUser).length !== 0;
     const setCartTotalPrice = useStore((state: any) => state.setCartTotalPrice)
     const addQuantity = useStore((state: any) => state.addQuantity)
     const quantity = useStore((state: any) => state.quantity)
@@ -77,17 +81,21 @@ const ProductPage = () => {
 
 
     const addToCart = async () => {
-
-        setCartProducts([...cart.cartProducts, {
-            _id:product._id,
-            img: product.img,
-            productsId: product._id,
-            quantity: quantity,
-            price: product.price,
-            size: size,
-            color: color
-        }])
-        setCartTotalPrice()
+if(user){
+    
+    setCartProducts([...cart.cartProducts, {
+        _id:product._id,
+        img: product.img,
+        productsId: product._id,
+        quantity: quantity,
+        price: product.price,
+        size: size,
+        color: color
+    }])
+    setCartTotalPrice()
+}else{
+    setAlertSwitch(true)
+}
 
     }
 
@@ -101,10 +109,10 @@ const ProductPage = () => {
 
 
     return (
-        <div className='ProductPageContainer'>
+        <div className='ProductPageContainer relative'>
 
-
-            <div className="productWrapper / md:p-10 xs:p-2 / flex md:flex-row xs:flex-col /">
+            {alertSwitch && <UserAlert/>}
+            <div className="productWrapper / md:p-10  / flex md:flex-row xs:flex-col /">
 
                 <div className="imgContainer flex-1">
                     <img className='productImg ' src={product.img} alt="" />
@@ -122,7 +130,7 @@ const ProductPage = () => {
                         <div className="filter flex justify-center items-center gap-2">
                             <span className="filterTitle font-extralight text-xl">Color</span>
                             {product.color?.map((item: string) => (
-
+                                
                                 <div id='filterColorContainer' className='filterColorContainer'>
                                     <option style={{ background: `${item}`, border: `${item} 1px solid` }} className="filterColor" key={item} onClick={() => optionHandeler(item)}></option>
                                 </div>
@@ -138,7 +146,7 @@ const ProductPage = () => {
                                 <option value="" hidden></option>
                                 {product.size?.map((item: string) => (
                                     <option key={item}>{item}</option>
-                                ))}
+                                    ))}
 
 
                             </select>

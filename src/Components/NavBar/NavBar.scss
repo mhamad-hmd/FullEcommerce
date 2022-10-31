@@ -36,29 +36,33 @@ textarea {
     position: absolute;
     z-index: 2;
     justify-self: center;
-    transform: translateY(35px);
+    transform: translateY(62%);
     height: auto;
     overflow-y: hidden;
-    pointer-events: none;
     margin-top: 5px;
+    pointer-events: none;
 }
 
 .accountIcon {
     z-index: 3;
 }
 .accOption {
-    transform: translateY(-50px);
     transition: 0.2s ease;
+    transform: translateY(-100%);
     visibility: hidden;
+    
 }
 
-.accountIcon:hover .accOption {
-    transform: translateY(0px);
-
-    visibility: visible;
-}
-.accountIcon:hover .accountOptions {
+.accountIconContainer:hover .accountOptions{
     pointer-events: auto;
+
+}
+
+.accountIconContainer:hover .accountOptions .accOption {
+    visibility: visible;
+    transform: translateY(0%);
+    pointer-events: auto;
+
 }
 
 .xsSearchBarContainer {
@@ -70,13 +74,11 @@ textarea {
     transform: translateX(-600px);
     display: none;
     transition: 0.5s ease;
-    
 }
 
 .activateSearchBar {
     display: block;
     transform: translateX(0px);
-
 }
 
 .xsSearchBar {
@@ -94,12 +96,17 @@ textarea {
     visibility: hidden;
     transform: translateX(-600px);
     transition: 0.5s ease;
-
 }
 
 .ActivateBlackPage {
     visibility: visible;
     transform: translateX(0);
     transition: 0.5s ease;
-    
+}
+
+.userProfileImage {
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }

@@ -62,6 +62,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products/:category" element={<ProductList />} />
           <Route path="/find/:tag" element={<ProductList />} />
+          <Route path="/find/all" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={isEmpty ? <Navigate to="/" /> : <LogIn />} />

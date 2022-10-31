@@ -9,6 +9,7 @@ import PopularProducts from '../Components/PopularProducts/PopularProducts'
 import { userRequest } from '../requestMethods'
 import { useStore, useUserStore } from '../store'
 import axios from 'axios'
+import UserAlert from '../Components/UserAlert/UserAlert'
 
 
 const Home = () => {

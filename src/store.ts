@@ -135,14 +135,17 @@ export const useStore = create(
             }
         )),
 
-       
-
-
         checkQuery: false,
         setCheckQuery: () => set((state: any) => (
 
             {
                 checkQuery: state.searchTag || state.category ? true : false
+            }
+        )),
+        alertSwitch: false,
+        setAlertSwitch: (Alert:Boolean) => set((state: any) => (
+            {
+                alertSwitch: Alert
             }
         )),
         userLikedProducts: [],

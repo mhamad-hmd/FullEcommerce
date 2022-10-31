@@ -3,30 +3,34 @@ import { useState } from 'react'
 import './slider.scss'
 
 import { sliderItems } from '../../data'
+import { Link } from 'react-router-dom';
+import { useStore } from '../../store';
 
 
 
 const Slider = () => {
 
     const slideContainer = document.getElementById('slideContainer');
+    const setSearchTag = useStore((state: any) => state.setSearchTag)
+    const setCategory = useStore((state: any) => state.setCategory)
 
     const [slideIndex, setSlideIndex] = useState(0)
 
     const handleClick = (direction: string) => {
-        if(direction === "left"){
-            setSlideIndex(slideIndex > 0? slideIndex - 1 : 2 )
+        if (direction === "left") {
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2)
 
-        } else{
-            setSlideIndex(slideIndex < 2? slideIndex + 1 : 0)
+        } else {
+            setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0)
 
         }
-     };
+    };
 
-     const transform = {
+    const transform = {
         transform: `translateX(${slideIndex * -100}vw)`
-        
+
     }
-    
+
 
     return (
         <div id='sliderContainer' className='h-screen w-full flex  md:flex xs:hidden '>
@@ -40,21 +44,27 @@ const Slider = () => {
 
             <div id='slideContainer' className='slideContainer flex ' style={transform}  >
                 {sliderItems.map((item) => (
-                    <div className={`slideWrapper flex items-center h-screen w-screen ${item.bg}` } key={item.id} >
+                    <div className={`slideWrapper flex items-center h-screen w-screen ${item.bg}`} key={item.id} >
 
-                    <div className='imgContainer '>
-                        <img className='slideImg' src={item.img} alt="" />
+                        <div className='imgContainer '>
+                            <img className='slideImg' src={item.img} alt="" />
+                        </div>
+
+                        <div className='infoWrapper'>
+                            <h1>{item.title}</h1>
+                            <p>{item.desc}</p>
+                            <Link to={"/products/all"} onClick={() => {
+                                setCategory("")
+                                setSearchTag("")
+                            }}>
+
+                            <button>SHOW NOW</button>
+                            </Link>
+                        </div>
+
                     </div>
-
-                    <div className='infoWrapper'>
-                        <h1>{item.title}</h1>
-                        <p>{item.desc}</p>
-                        <button>SHOW NOW</button>
-                    </div>
-
-                </div>
                 ))}
-                
+
 
             </div>
 

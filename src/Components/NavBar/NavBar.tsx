@@ -12,6 +12,8 @@ const Navbar = () => {
   const setSearchInputs = useStore((state: any) => state.setSearchInputs)
   const cart = useStore((state: any) => state.cart)
   const searchInputs = useStore((state: any) => state.searchInputs)
+  const setSearchTag = useStore((state: any) => state.setSearchTag)
+  const setCategory = useStore((state: any) => state.setCategory)
 
   const handleAccount = () => {
     document.getElementById('accountOptions')?.classList.add('active')
@@ -49,8 +51,11 @@ const Navbar = () => {
     <div className='navContainer relative'>
       <div id='xsSearchBarContainer' className='xsSearchBarContainer / bg-slate-100 px-2 xs:grid md:hidden'>
 
-        <form className='flex gap-2' action={`/find/${searchInputs.toLowerCase()}`}>
-          <button>
+        <form className='flex gap-2' action={`/find/${searchInputs}`}>
+          <button onClick={() => {
+            setSearchTag(searchInputs)
+            setCategory("")
+          }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
@@ -77,7 +82,10 @@ const Navbar = () => {
 
                 <input type="text" className='searchBar outline-0' placeholder='Search' onChange={(e) => setSearchInputs(e.target.value)} />
 
-                <button >
+                <button onClick={() => {
+                  setSearchTag(searchInputs)
+                  setCategory("")
+                }} >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="md:w-6 md:h-6 xs:w-5 xs:h-5  m-auto">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
@@ -112,30 +120,34 @@ const Navbar = () => {
         </Link>
 
         <div className='navEnd  navItemsRight / flex  md:justify-end  xs:justify-center items-center gap-2 / '>
-          <div className='relative cursor-  pointer  justify-center items-center'>
+          <div className='relative accountIconContainer  pointer  justify-center items-center'>
             <div className=' grid accountIcon '>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={handleAccount} className=" md:w-9 md:h-9 xs:w-9 xs:h-9  m-auto">
-                <path strokeLinecap="round" className='' strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+              {
+                user.imageUrl ? <img src={user.imageUrl} alt="" className="userProfileImage " />
+                  : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={handleAccount} className=" md:w-9 md:h-9 xs:w-9 xs:h-9  m-auto">
+                    <path strokeLinecap="round" className='' strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+              }
+
 
               <div id='' className='accountOptions / grid  justify-center m-auto gap-x-2  /py-1   '>
                 {signedIn ?
-                  <>
-                    <Link className='accOption bg-gray-900/60 ' to={`/register`}>
+                  <div className='accOption bg-gray-900/60'>
+                    <Link className='  ' to={`/register`}>
                       <h1 className='font-normal tracking-wide text-white text-md p-1 '>Register</h1>
-                    </Link><Link className='accOption bg-gray-900/60' to={`/login`}>
+                    </Link><Link className=' ' to={`/login`}>
                       <h1 className='font-normal tracking-wide text-white text-md p-1'>Signin</h1>
                     </Link>
-                  </>
+                  </div>
                   :
-                  <>
-                    <Link className='accOption bg-gray-900/60 ' to={`/login`}>
+                  <div className='accOption bg-gray-900/60 '>
+                    <Link className=' ' to={`/login`}>
                       <h1 className='font-normal tracking-wide text-white text-md p-1' onClick={handleSignOut}>SignOut</h1>
                     </Link>
-                    <Link className='accOption bg-gray-900/60 ' to={`/profile`}>
+                    <Link className='  ' to={`/profile`}>
                       <h1 className='font-normal tracking-wide text-white text-md p-1' >Profile</h1>
                     </Link>
-                  </>
+                  </div>
 
                 }
               </div>

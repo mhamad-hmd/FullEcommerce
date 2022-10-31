@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useStore } from '../../store'
 import './categoryItem.scss'
 
 type item = {
@@ -11,9 +12,15 @@ type item = {
 }
 
 const CategoryItem = ({ item }: { item: item }) => {
+  const setCategory = useStore((state: any) => state.setCategory)
+  const setSearchTag = useStore((state: any) => state.setSearchTag)
+
   return (
     <div className='categoryItemContainer relative flex-1 m-1' >
-      <Link to={`/products/${item.cat}`}>
+      <Link to={`/products/${item.cat}`} onClick={() => {
+        setCategory(item.cat)
+        setSearchTag("")
+        }}>
 
         <img className=' categoryImg / w-full md:h-full  object-cover ' src={item.img} alt="" />
 

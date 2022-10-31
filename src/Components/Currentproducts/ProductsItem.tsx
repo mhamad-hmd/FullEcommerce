@@ -2,9 +2,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, NavLink } from 'react-router-dom'
 import { userRequest } from '../../requestMethods'
-import { useUserStore } from '../../store'
+import { useStore, useUserStore } from '../../store'
 import './productsItem.scss'
 import _ from 'lodash';
+import UserAlert from '../UserAlert/UserAlert'
 
 
 type item = {
@@ -25,8 +26,12 @@ const likedProducts = useUserStore((state:any) => state.likedProducts)
 const setlikedProducts = useUserStore((state:any) => state.setlikedProducts)
 const [liked, setLiked] = useState(false);
 const productContainer = useRef(null)
-
+const user = Object.keys(currentUser).length !== 0;
 const productsInView = useIsInViewport(productContainer);
+const setAlertSwitch = useStore((state) => state.setAlertSwitch)
+const alertSwitch = useStore((state) => state.alertSwitch)
+
+
 
 useEffect(() => {
 
@@ -59,14 +64,19 @@ useEffect(() => {
 },[currentUser.favProducs])
 
     const handleLiked = () => {
-        if(liked === false)
-        {
-            setLiked(true)
-            setUserFavProducts(item._id)
-        }
-        else if(liked === true){
-            setLiked(false)
-            rmvUserFavProducts(item._id)
+        if(user){
+
+            if(liked === false)
+            {
+                setLiked(true)
+                setUserFavProducts(item._id)
+            }
+            else if(liked === true){
+                setLiked(false)
+                rmvUserFavProducts(item._id)
+            }
+        }else{
+            setAlertSwitch(true)
         }
     }
 

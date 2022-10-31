@@ -103,7 +103,7 @@ const CurrentProducts = ({ filters, sort, reset }: props) => {
         <ProductsItem item={item} index={index} key={item._id} />
       ))
       }
-    </div>
+    </div>  
   )
 }
 
