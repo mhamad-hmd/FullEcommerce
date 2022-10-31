@@ -10,6 +10,20 @@
     }
 }
 
+.registerImg{
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    object-fit: cover;
+    
+}
+
+.imgInp{
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 .loginContainer {
     width: 100%;
     height: 100vh;
