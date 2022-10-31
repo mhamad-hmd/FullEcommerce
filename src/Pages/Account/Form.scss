@@ -95,6 +95,10 @@
 }
 .imageInput {
     max-width: 200px;
+    transform: translateX(-160%);
+    @media (min-width: 320px) and (max-width: 640px) {
+        transform: translateX(0%);
+    }
 }
 
 .profileInput {
@@ -122,11 +126,12 @@ input[type="email"] {
     right: 25%;
     @media (min-width: 320px) and (max-width: 640px) {
         top: 30%;
-        right: 25%;
+        right: 12%;
     }
 }
 .formBtn {
-    background-color: darkblue !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 3px #002661 solid;
     padding: 10px;
     border-radius: 5px;
 }
