@@ -29,7 +29,7 @@ const ProfilePage = () => {
 
             try {
                 const res = await axios.get((
-                    `https://full-ecommerce-api.herokuapp.com/api/products`
+                    `https://eshop-38fe.onrender.com/api/products`
                 ))
                 setuserLikedProducts(res.data, currentUser.favProducts)
 

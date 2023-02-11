@@ -36,9 +36,9 @@ const ProductList = () => {
       const getProducts = async () => {
         try {
           
-          const res = await axios.get((searchTag ? `https://full-ecommerce-api.herokuapp.com/api/products/?tag=${searchTag}`
-            : category ? `https://full-ecommerce-api.herokuapp.com/api/products/?category=${category}`
-              : `https://full-ecommerce-api.herokuapp.com/api/products/`
+          const res = await axios.get((searchTag ? `https://eshop-38fe.onrender.com/api/products/?tag=${searchTag}`
+            : category ? `https://eshop-38fe.onrender.com/api/products/?category=${category}`
+              : `https://eshop-38fe.onrender.com/api/products/`
           ))
 
           setCurrentProducts(res.data)
